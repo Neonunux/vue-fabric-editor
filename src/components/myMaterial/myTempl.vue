@@ -8,7 +8,7 @@
 
 <template>
   <div>
-    <!-- 搜索组件 -->
+    <!-- Search component -->
     <div class="search-box">
       <Dropdown @on-click="createType" placement="bottom-start" style="margin-right: 10px" transfer>
         <Button type="primary" icon="md-add"></Button>
@@ -30,7 +30,7 @@
       />
     </div>
 
-    <!-- 面包屑导航 -->
+    <!-- Bread dandruff navigation -->
     <Breadcrumb>
       <BreadcrumbItem
         @click="toFile(item.parentId, i)"
@@ -41,7 +41,7 @@
       </BreadcrumbItem>
     </Breadcrumb>
 
-    <!-- 列表 -->
+    <!-- List -->
     <div style="height: calc(100vh - 160px)" id="myFileTemplBox">
       <Scroll
         key="myFileTemplBox"
@@ -50,9 +50,9 @@
         :height="scrollHeight"
         :distance-to-edge="[-1, -1]"
       >
-        <!-- 列表 -->
+        <!-- List -->
         <div v-for="info in pageData" :key="info.name" class="item">
-          <!-- 文件夹样式 -->
+          <!-- Folder style -->
           <fileType
             v-if="info.type === 'fileType'"
             :itemId="info.id"
@@ -76,7 +76,7 @@
       </Scroll>
     </div>
 
-    <!-- 创建设计 -->
+    <!-- Create design -->
     <modalSzie
       :title="$t('importFiles.createDesign.title')"
       ref="modalSizeRef"
@@ -89,24 +89,24 @@
 import { Input } from 'view-ui-plus';
 import { Spin, Modal, Message } from 'view-ui-plus';
 
-// 组件
+// Component
 import fileType from './components/fileType.vue';
 import file from './components/file.vue';
 import modalSzie from '@/components/common/modalSzie';
 
 // API
 import { getTmplList, getFileTypeTree } from '@/api/user';
-// 素材与分页
+// Material and paging
 import useMaterial from '@/hooks/useMaterial';
 import usePageList, { getMaterialInfoUrl, getMaterialPreviewUrl } from '@/hooks/usePageList';
-// 路由
+// routing
 import { useRoute } from 'vue-router';
 const route = useRoute();
 
-// 用户素材API操作
+// User material API operation
 const { createdFileType, createTmpl } = useMaterial();
 
-// 检索条件
+// Retrieval
 const filters = reactive({
   name: {
     $contains: '',
@@ -119,7 +119,7 @@ const filters = reactive({
 
 const sort = ['type:desc'];
 
-// 分页格式化
+// Paging
 const formatData = (data) => {
   return data.map((item) => {
     return {
@@ -133,7 +133,7 @@ const formatData = (data) => {
     };
   });
 };
-// 通用分页
+// Universal pagination
 const {
   pageData,
   showScroll,
@@ -159,7 +159,7 @@ onMounted(async () => {
 
 const fileTypeName = ref('');
 const modalSizeRef = ref(null);
-// 新建文件
+// New file
 const createType = (type) => {
   if (type === 'fileType') {
     fileTypeName.value = '';
@@ -208,7 +208,7 @@ const getFileTypeTreeData = async () => {
     filters.parentId.$eq = last.parentId;
   }
 };
-// 进入文件夹
+// Enter the folder
 const joinFileTyper = (id, name) => {
   filters.parentId.$eq = String(id);
   filePath.value.push({
@@ -218,7 +218,7 @@ const joinFileTyper = (id, name) => {
   startGetList();
 };
 
-// 面包屑跳转文件夹
+// Bread dandruff jump file folder
 const toFile = (id, i) => {
   const isLast = i === filePath.value.length - 1;
   if (!isLast) {

@@ -6,7 +6,7 @@ import { throttle } from 'lodash-es';
 import { setupGuideLine } from './guideline';
 
 /**
- * 配置
+ * Configuration
  */
 export interface RulerOptions {
   /**
@@ -15,40 +15,40 @@ export interface RulerOptions {
   canvas: Canvas;
 
   /**
-   * 标尺宽高
+   * High tape width
    * @default 20
    */
   ruleSize?: number;
 
   /**
-   * 字体大小
+   * font size
    * @default 10
    */
   fontSize?: number;
 
   /**
-   * 是否开启标尺
+   * Whether to turn on the ruler
    * @default false
    */
   enabled?: boolean;
 
   /**
-   * 背景颜色
+   * background color
    */
   backgroundColor?: string;
 
   /**
-   * 文字颜色
+   * Text color
    */
   textColor?: string;
 
   /**
-   * 边框颜色
+   * Border color
    */
   borderColor?: string;
 
   /**
-   * 高亮颜色
+   * Highlight
    */
   highlightColor?: string;
 }
@@ -63,29 +63,29 @@ class CanvasRuler {
   protected ctx: CanvasRenderingContext2D;
 
   /**
-   * 配置
+   * Configuration
    */
   public options: Required<RulerOptions>;
 
   /**
-   * 标尺起始点
+   * Starting point of the ruler
    */
   public startCalibration: undefined | Point;
 
   private activeOn: 'down' | 'up' = 'up';
 
   /**
-   * 选取对象矩形坐标
+   * Select object rectangular coordinates
    */
   private objectRect:
     | undefined
     | {
-        x: HighlightRect[];
-        y: HighlightRect[];
-      };
+      x: HighlightRect[];
+      y: HighlightRect[];
+    };
 
   /**
-   * 事件句柄缓存
+   * Event handle cache
    */
   private eventHandler: Record<string, (...args: any) => void> = {
     // calcCalibration: this.calcCalibration.bind(this),
@@ -95,7 +95,7 @@ class CanvasRuler {
     canvasMouseMove: throttle(this.canvasMouseMove.bind(this), 15),
     canvasMouseUp: this.canvasMouseUp.bind(this),
     render: (e: any) => {
-      // 避免多次渲染
+      // Avoid multiple rendering
       if (!e.ctx) return;
       this.render();
     },
@@ -106,15 +106,15 @@ class CanvasRuler {
     cursor: string | undefined;
     selection: boolean | undefined;
   } = {
-    status: 'out',
-    cursor: undefined,
-    selection: undefined,
-  };
+      status: 'out',
+      cursor: undefined,
+      selection: undefined,
+    };
 
   private tempGuidelLine: fabric.GuideLine | undefined;
 
   constructor(_options: RulerOptions) {
-    // 合并默认配置
+    // Merge default configuration
     this.options = Object.assign(
       {
         ruleSize: 20,
@@ -141,20 +141,20 @@ class CanvasRuler {
     }
   }
 
-  // 销毁
+  // destroy
   public destroy() {
     this.disable();
   }
 
   /**
-   * 移除全部辅助线
+   * Remove all the auxiliary lines
    */
   public clearGuideline() {
     this.options.canvas.remove(...this.options.canvas.getObjects(fabric.GuideLine.prototype.type));
   }
 
   /**
-   * 显示全部辅助线
+   * Show all the auxiliary lines
    */
   public showGuideline() {
     this.options.canvas.getObjects(fabric.GuideLine.prototype.type).forEach((guideLine) => {
@@ -164,7 +164,7 @@ class CanvasRuler {
   }
 
   /**
-   * 隐藏全部辅助线
+   * Hide all the auxiliary lines
    */
   public hideGuideline() {
     this.options.canvas.getObjects(fabric.GuideLine.prototype.type).forEach((guideLine) => {
@@ -174,12 +174,12 @@ class CanvasRuler {
   }
 
   /**
-   * 启用
+   * Open up
    */
   public enable() {
     this.options.enabled = true;
 
-    // 绑定事件
+    // Binding event
     this.options.canvas.on('after:render', this.eventHandler.calcObjectRect);
     this.options.canvas.on('after:render', this.eventHandler.render);
     this.options.canvas.on('mouse:down', this.eventHandler.canvasMouseDown);
@@ -187,18 +187,18 @@ class CanvasRuler {
     this.options.canvas.on('mouse:up', this.eventHandler.canvasMouseUp);
     this.options.canvas.on('selection:cleared', this.eventHandler.clearStatus);
 
-    // 显示辅助线
+    // Display auxiliary line
     this.showGuideline();
 
-    // 绘制一次
+    // Draw
     this.render();
   }
 
   /**
-   * 禁用
+   * Disable
    */
   public disable() {
-    // 解除事件
+    // Lift
     this.options.canvas.off('after:render', this.eventHandler.calcObjectRect);
     this.options.canvas.off('after:render', this.eventHandler.render);
     this.options.canvas.off('mouse:down', this.eventHandler.canvasMouseDown);
@@ -206,20 +206,20 @@ class CanvasRuler {
     this.options.canvas.off('mouse:up', this.eventHandler.canvasMouseUp);
     this.options.canvas.off('selection:cleared', this.eventHandler.clearStatus);
 
-    // 隐藏辅助线
+    // Hidden auxiliary line
     this.hideGuideline();
 
     this.options.enabled = false;
   }
 
   /**
-   * 绘制
+   * draw
    */
   public render() {
     // if (!this.options.enabled) return;
     const vpt = this.options.canvas.viewportTransform;
     if (!vpt) return;
-    // 绘制尺子
+    // Draw a ruler
     this.draw({
       isHorizontal: true,
       rulerLength: this.getSize().width,
@@ -232,7 +232,7 @@ class CanvasRuler {
       // startCalibration: -(vpt[5] / vpt[3]),
       startCalibration: this.startCalibration?.y ? this.startCalibration.y : -(vpt[5] / vpt[3]),
     });
-    // 绘制左上角的遮罩
+    // Draw a mask in the upper left corner
     drawMask(this.ctx, {
       isHorizontal: true,
       left: -10,
@@ -252,7 +252,7 @@ class CanvasRuler {
   }
 
   /**
-   * 获取画板尺寸
+   * Get the size of the painting board
    */
   private getSize() {
     return {
@@ -274,7 +274,7 @@ class CanvasRuler {
     const startValue = Math[startCalibration > 0 ? 'floor' : 'ceil'](startCalibration / gap) * gap;
     const startOffset = startValue - startCalibration;
 
-    // 标尺背景
+    // Benchmark background
     const canvasSize = this.getSize();
     darwRect(this.ctx, {
       left: 0,
@@ -285,9 +285,9 @@ class CanvasRuler {
       stroke: this.options.borderColor,
     });
 
-    // 颜色
+    // color
     const textColor = new fabric.Color(this.options.textColor);
-    // 标尺文字显示
+    // Label ruler text display
     for (let i = 0; i + startOffset <= Math.ceil(unitLength); i += gap) {
       const position = (startOffset + i) * zoom;
       const textValue = startValue + i + '';
@@ -307,7 +307,7 @@ class CanvasRuler {
       });
     }
 
-    // 标尺刻度线显示
+    // Label scales display
     for (let j = 0; j + startOffset <= Math.ceil(unitLength); j += gap) {
       const position = Math.round((startOffset + j) * zoom);
       const left = isHorizontal ? position : this.options.ruleSize - 8;
@@ -323,16 +323,16 @@ class CanvasRuler {
       });
     }
 
-    // 标尺蓝色遮罩
+    // Label ruler blue mask
     if (this.objectRect) {
       const axis = isHorizontal ? 'x' : 'y';
       this.objectRect[axis].forEach((rect) => {
-        // 跳过指定矩形
+        // Skip the specified rectangle
         if (rect.skip === axis) {
           return;
         }
 
-        // 获取数字的值
+        // Get the value of the number
         const roundFactor = (x: number) => Math.round(x / zoom + startCalibration) + '';
         const leftTextVal = roundFactor(isHorizontal ? rect.left : rect.top);
         const rightTextVal = roundFactor(
@@ -341,7 +341,7 @@ class CanvasRuler {
 
         const isSameText = leftTextVal === rightTextVal;
 
-        // 背景遮罩
+        // Background mask
         const maskOpt = {
           isHorizontal,
           width: isHorizontal ? 160 : this.options.ruleSize - 8,
@@ -361,10 +361,10 @@ class CanvasRuler {
           });
         }
 
-        // 颜色
+        // color
         const highlightColor = new fabric.Color(this.options.highlightColor);
 
-        // 高亮遮罩
+        // Highlighten
         highlightColor.setAlpha(0.5);
         darwRect(this.ctx, {
           left: isHorizontal ? rect.left : this.options.ruleSize - 8,
@@ -374,7 +374,7 @@ class CanvasRuler {
           fill: highlightColor.toRgba(),
         });
 
-        // 两边的数字
+        // Numbers on both sides
         const pad = this.options.ruleSize / 2 - this.options.fontSize / 2 - 4;
 
         const textOpt = {
@@ -400,7 +400,7 @@ class CanvasRuler {
           });
         }
 
-        // 两边的线
+        // On both sides
         const lineSize = isSameText ? 8 : 14;
 
         highlightColor.setAlpha(1);
@@ -430,7 +430,7 @@ class CanvasRuler {
   }
 
   /**
-   * 计算起始点
+   * Calculate the starting point
    */
   // private calcCalibration() {
   //   if (this.startCalibration) return;
@@ -448,7 +448,7 @@ class CanvasRuler {
     if (activeObjects.length === 0) return;
     const allRect = activeObjects.reduce((rects, obj) => {
       const rect: HighlightRect = obj.getBoundingRect(false, true);
-      // 如果是分组单独计算坐标
+      // If it is a group calculation of the coordinates separately
       if (obj.group) {
         const group = {
           top: 0,
@@ -459,7 +459,7 @@ class CanvasRuler {
           scaleY: 1,
           ...obj.group,
         };
-        // 计算矩形坐标
+        // Calculate rectangular coordinates
         rect.width *= group.scaleX;
         rect.height *= group.scaleY;
         const groupCenterX = group.width / 2 + group.left;
@@ -483,7 +483,7 @@ class CanvasRuler {
   }
 
   /**
-   * 清除起始点和矩形坐标
+   * Clear the starting point and rectangular coordinates
    */
   private clearStatus() {
     // this.startCalibration = undefined;
@@ -491,7 +491,7 @@ class CanvasRuler {
   }
 
   /**
-    判断鼠标是否在标尺上
+    Determine whether the mouse is on the ruler
    * @param point 
    * @returns "vertical" | "horizontal" | false
    */
@@ -522,7 +522,7 @@ class CanvasRuler {
     if (!e.pointer || !e.absolutePointer) return;
     const hoveredRuler = this.isPointOnRuler(e.pointer);
     if (hoveredRuler && this.activeOn === 'up') {
-      // 备份属性
+      // Backup attribute
       this.lastAttr.selection = this.options.canvas.selection;
       this.options.canvas.selection = false;
       this.activeOn = 'down';
@@ -578,9 +578,9 @@ class CanvasRuler {
 
     const hoveredRuler = this.isPointOnRuler(e.pointer);
     if (!hoveredRuler) {
-      // 鼠标从里面出去
+      // Mouse goes out from the inside
       if (this.lastAttr.status !== 'out') {
-        // 更改鼠标指针
+        // Change the mouse pointer
         this.options.canvas.defaultCursor = this.lastAttr.cursor;
         this.lastAttr.status = 'out';
       }
@@ -590,9 +590,9 @@ class CanvasRuler {
     // if (activeObjects.length === 1 && activeObjects[0] instanceof fabric.GuideLine) {
     //   return;
     // }
-    // 鼠标从外边进入 或 在另一侧标尺
+    // Enter from the outside or on the other side ruler
     if (this.lastAttr.status === 'out' || hoveredRuler !== this.lastAttr.status) {
-      // 更改鼠标指针
+      // Change the mouse pointer
       this.lastAttr.cursor = this.options.canvas.defaultCursor;
       this.options.canvas.defaultCursor = hoveredRuler === 'horizontal' ? 'ns-resize' : 'ew-resize';
       this.lastAttr.status = hoveredRuler;
@@ -602,7 +602,7 @@ class CanvasRuler {
   private canvasMouseUp(e: IEvent<MouseEvent>) {
     if (this.activeOn !== 'down') return;
 
-    // 还原属性
+    // Reducing property
     this.options.canvas.selection = this.lastAttr.selection;
     this.activeOn = 'up';
 

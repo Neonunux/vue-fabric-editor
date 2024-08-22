@@ -9,6 +9,7 @@
 import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 import { getImgStr } from '../utils/utils';
+import { t } from '../utils/languages';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
 type IPlugin = Pick<CopyPlugin, 'clone'>;
@@ -27,20 +28,20 @@ class CopyPlugin implements IPluginTempl {
     this.initPaste();
   }
 
-  // 多选对象复制
+  // Copy multiple selected objects
   _copyActiveSelection(activeObject: fabric.Object) {
-    // 间距设置
+    // Spacing settings
     const grid = 10;
     const canvas = this.canvas;
     const keys = this.editor.getExtensionKey();
     activeObject?.clone((cloned: fabric.Object) => {
-      // 再次进行克隆，处理选择多个对象的情况
+      // Clone again to handle the selection of multiple objects
       cloned.clone((clonedObj: fabric.ActiveSelection) => {
         canvas.discardActiveObject();
         if (clonedObj.left === undefined || clonedObj.top === undefined) return;
-        // 将克隆的画布重新赋值
+        // Reassign the cloned canvas
         clonedObj.canvas = canvas;
-        // 设置位置信息
+        // Set location
         clonedObj.set({
           left: clonedObj.left + grid,
           top: clonedObj.top + grid,
@@ -51,7 +52,7 @@ class CopyPlugin implements IPluginTempl {
           obj.id = uuid();
           canvas.add(obj);
         });
-        // 解决不可选择问题
+        // Solve non-choice problems
         clonedObj.setCoords();
         canvas.setActiveObject(clonedObj);
         canvas.requestRenderAll();
@@ -59,16 +60,16 @@ class CopyPlugin implements IPluginTempl {
     }, keys);
   }
 
-  // 单个对象复制
+  // Single object copy
   _copyObject(activeObject: fabric.Object) {
-    // 间距设置
+    // Spacing settings
     const grid = 10;
     const canvas = this.canvas;
     const keys = this.editor.getExtensionKey();
     activeObject?.clone((cloned: fabric.Object) => {
       if (cloned.left === undefined || cloned.top === undefined) return;
       canvas.discardActiveObject();
-      // 设置位置信息
+      // Set location
       cloned.set({
         left: cloned.left + grid,
         top: cloned.top + grid,
@@ -81,7 +82,7 @@ class CopyPlugin implements IPluginTempl {
     }, keys);
   }
 
-  // 复制元素
+  // Copy element
   clone(paramsActiveObeject?: fabric.ActiveSelection | fabric.Object) {
     const activeObject = paramsActiveObeject || this.canvas.getActiveObject();
     if (!activeObject) return;
@@ -92,16 +93,16 @@ class CopyPlugin implements IPluginTempl {
     }
   }
 
-  // 快捷键扩展回调
+  // Shortcut key extension recovery
   hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (eventName === 'ctrl+c' && e.type === 'keydown') {
       const activeObject = this.canvas.getActiveObject();
       this.cache = activeObject;
-      // 清空剪切板
+      // Clear shear plate
       navigator.clipboard.writeText('');
     }
     if (eventName === 'ctrl+v' && e.type === 'keydown') {
-      // 确保clone元素操作的执行晚于pasteListener
+      // Ensure that the operation of the Clone element is later than Pastelistener
       setTimeout(() => {
         if (this.cache) {
           this.clone(this.cache);
@@ -113,7 +114,7 @@ class CopyPlugin implements IPluginTempl {
   contextMenu() {
     const activeObject = this.canvas.getActiveObject();
     if (activeObject) {
-      return [{ text: '复制', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.clone() }];
+      return [{ text: t('copy'), hotkey: 'Ctrl+V', disabled: false, onclick: () => this.clone() }];
     }
   }
 
@@ -129,7 +130,7 @@ class CopyPlugin implements IPluginTempl {
   async pasteListener(event: any) {
     const canvas = this.canvas;
     if (document.activeElement === document.body) {
-      event.preventDefault(); // 阻止默认粘贴行为
+      event.preventDefault(); // Prevent default paste behavior
     } else {
       return;
     }
@@ -159,34 +160,34 @@ class CopyPlugin implements IPluginTempl {
         //   addTemplate(template);
         // }
         if (item.type.indexOf('image/') === 0) {
-          // 这是一个图片文件
+          // This is a picture file
           const imageUrl = URL.createObjectURL(file);
           const imgEl = document.createElement('img');
           imgEl.src = imageUrl;
-          // 插入页面
+          // Insert page
           document.body.appendChild(imgEl);
           imgEl.onload = () => {
-            // 创建图片对象
+            // Create a picture object
             const imgInstance = new fabric.Image(imgEl, {
               id: uuid(),
-              name: '图片1',
+              name: t('picture-1'),
               left: 100,
               top: 100,
             });
-            // 设置缩放
+            // Set the zoom
             canvas.add(imgInstance);
             canvas.setActiveObject(imgInstance);
             canvas.renderAll();
-            // 删除页面中的图片元素
+            // Delete the picture elements in the page
             imgEl.remove();
           };
         }
       } else if (item.kind === 'string' && item.type.indexOf('text/plain') === 0) {
-        // 文本数据
+        // text data
         item.getAsString((text: any) => {
-          // 插入到文本框
+          // Insert to the text box
           const activeObject = canvas.getActiveObject() as fabric.Textbox;
-          // 如果是激活的文字把复制的内容插入到对应光标位置
+          // If it is the activated text, insert the copy of the copy to the corresponding cursor location
           if (
             activeObject &&
             (activeObject.type === 'textbox' || activeObject.type === 'i-text') &&
@@ -196,14 +197,14 @@ class CopyPlugin implements IPluginTempl {
             const textBeforeCursorPosition = activeObject.text.substring(0, cursorPosition);
             const textAfterCursorPosition = activeObject.text.substring(cursorPosition as number);
 
-            // 更新文本对象的文本
+            // Update the text of the text object
             activeObject.set('text', textBeforeCursorPosition + text + textAfterCursorPosition);
 
-            // 重新设置光标的位置
+            // Set the position of the cursor
             activeObject.selectionStart = cursorPosition + text.length;
             activeObject.selectionEnd = cursorPosition + text.length;
 
-            // 重新渲染画布展示更新后的文本
+            // Re-rendering the updated text after the canvas
             activeObject.dirty = true;
             canvas.renderAll();
           } else {
@@ -219,7 +220,7 @@ class CopyPlugin implements IPluginTempl {
         });
       }
     }
-    // 复制浏览器外的元素时，清空暂存的画布内粘贴元素
+    // When copying the elements outside the browser, the empty temporary canvas paste the element
     if (items.length) this.cache = null;
   }
 }

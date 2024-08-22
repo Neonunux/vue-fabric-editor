@@ -35,7 +35,7 @@
           </Row>
         </div>
       </div>
-      <!-- 层级调整按钮 -->
+      <!-- Hierarchical adjustment button -->
       <div class="btn-box">
         <ButtonGroup v-show="mixinState.mSelectMode === 'one'" size="small">
           <Button @click="up"><span v-html="btnIconType('up')"></span></Button>
@@ -46,7 +46,7 @@
       </div>
     </template>
     <template v-else>
-      <p class="empty-text">暂无图层</p>
+      <p class="empty-text">{{ $t('no-layer-set') }}</p>
     </template>
   </div>
 </template>
@@ -58,12 +58,12 @@ const { canvasEditor, fabric, mixinState } = useSelect();
 
 const list = ref([]);
 
-// 是否选中元素
+// Whether to select elements
 const isSelect = (item) => {
   return item.id === mixinState.mSelectId || mixinState.mSelectIds.includes(item.id);
 };
 
-// 图层类型图标
+// Layer type icon
 const iconType = (type) => {
   const iconType = {
     group:
@@ -101,7 +101,7 @@ const textType = (type, item) => {
   };
   return typeText[type] || '默认元素';
 };
-// 选中元素
+// Selection element
 const select = (id) => {
   const info = canvasEditor.canvas.getObjects().find((item) => item.id === id);
   canvasEditor.canvas.discardActiveObject();
@@ -109,7 +109,7 @@ const select = (id) => {
   canvasEditor.canvas.requestRenderAll();
 };
 
-// 按钮类型
+// Button type
 const btnIconType = (type) => {
   const iconType = {
     up: '<svg t="1650442206559" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1799" width="12" height="12"><path d="M876.2 434.3L536.7 94.9c-6.6-6.6-15.5-10.3-24.7-10.3-9.3 0-18.2 3.7-24.7 10.3L147.8 434.3c-13.7 13.7-13.7 35.8 0 49.5 13.7 13.7 35.8 13.7 49.5 0L477 204.1v700.2c0 19.3 15.7 35 35 35s35-15.7 35-35V204.1l279.7 279.7c6.8 6.8 15.8 10.3 24.7 10.3s17.9-3.4 24.7-10.3c13.7-13.7 13.7-35.8 0.1-49.5z" p-id="1800"></path></svg>',
@@ -135,11 +135,11 @@ const downTop = () => {
 };
 
 const getList = () => {
-  // 不改原数组 反转
+  // Do not change the original array Reverse
   list.value = [
     ...canvasEditor.canvas.getObjects().filter((item) => {
       // return item;
-      // 过滤掉辅助线
+      // Filter the auxiliary line
       return !(item instanceof fabric.GuideLine || item.id === 'workspace');
     }),
   ]

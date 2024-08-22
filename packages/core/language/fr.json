@@ -1,0 +1,20 @@
+{
+  "SVG-element": "élément SVG",
+  "horizon": "horizon",
+  "copy": "copier",
+  "picture-1": "Image 1",
+  "delete": "supprimer",
+  "turn-over": "retourner",
+  "flip": {
+    "x": "miroir horizontal",
+    "y": "miroir vertical"
+  },
+  "split-combination": "séparer",
+  "combination": "Combinaison",
+  "confirm-to-leave": "Confirmer pour quitter",
+  "layer-management": "Gestion des calques",
+  "previous": "Précédent",
+  "replication": "Duplication",
+  "copy-failure": "Erreur de copie",
+  "color": "Color"
+}

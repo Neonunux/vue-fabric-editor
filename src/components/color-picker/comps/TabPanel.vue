@@ -17,7 +17,7 @@ const vm = getCurrentInstance();
 vm.parent.exposed.tabs.value.push(vm);
 
 defineProps({
-  // Tabs 会用到 label
+  // Tabs Will use label
   label: {
     type: String,
     required: true,

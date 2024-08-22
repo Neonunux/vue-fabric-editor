@@ -8,8 +8,10 @@
     "prettier.configPath": ".prettierrc.js",
     "prettier.requireConfig": true,
     "i18n-ally.localesPaths": [
-        "src/language"
+        // "src/language",
+        "packages/core/language"
     ],
-    "i18n-ally.sourceLanguage": "zh",
-    "i18n-ally.keystyle": "nested" // 需要Prettier的配置文件
+    // "i18n-ally.sourceLanguage": "zh",
+    "i18n-ally.sourceLanguage": "fr",
+    "i18n-ally.keystyle": "nested" // Need a prettier configuration file
 }

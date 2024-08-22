@@ -17,8 +17,8 @@ type IPlugin = Pick<
   | 'auto'
   | 'one'
   | 'setSize'
-  | 'getWorkspase'
-  | 'setWorkspaseBg'
+  | 'getWorkspace'
+  | 'setWorkspaceBg'
   | 'setCenterFromObject'
 >;
 
@@ -36,8 +36,8 @@ class WorkspacePlugin implements IPluginTempl {
     'auto',
     'one',
     'setSize',
-    'getWorkspase',
-    'setWorkspaseBg',
+    'getWorkspace',
+    'setWorkspaceBg',
     'setCenterFromObject',
   ];
   workspaceEl!: HTMLElement;
@@ -91,14 +91,14 @@ class WorkspacePlugin implements IPluginTempl {
     });
   }
 
-  // 初始化背景
+  // Initialize background
   _initBackground() {
     this.canvas.backgroundImage = '';
     this.canvas.setWidth(this.workspaceEl.offsetWidth);
     this.canvas.setHeight(this.workspaceEl.offsetHeight);
   }
 
-  // 初始化画布
+  // Initialize canvas
   _initWorkspace() {
     const { width, height } = this.option;
     const workspace = new fabric.Rect({
@@ -121,14 +121,14 @@ class WorkspacePlugin implements IPluginTempl {
     this.auto();
   }
 
-  // 返回workspace对象
-  getWorkspase() {
+  // Return workspace object
+  getWorkspace() {
     return this.canvas.getObjects().find((item) => item.id === 'workspace') as fabric.Rect;
   }
 
   /**
-   * 设置画布中心到指定对象中心点上
-   * @param {Object} obj 指定的对象
+   * Set the center of the canvas to the center point of the specified object
+   * @param {Object} obj specified object
    */
   setCenterFromObject(obj: fabric.Rect) {
     const { canvas } = this;
@@ -141,7 +141,7 @@ class WorkspacePlugin implements IPluginTempl {
     canvas.renderAll();
   }
 
-  // 初始化监听器
+  // Initialize listener
   _initResizeObserve() {
     const resizeObserver = new ResizeObserver(
       throttle(() => {
@@ -156,7 +156,7 @@ class WorkspacePlugin implements IPluginTempl {
     this._initBackground();
     this.option.width = width;
     this.option.height = height;
-    // 重新设置workspace
+    // Reset workspace
     this.workspace = this.canvas
       .getObjects()
       .find((item) => item.id === 'workspace') as fabric.Rect;
@@ -178,7 +178,7 @@ class WorkspacePlugin implements IPluginTempl {
     if (!this.workspace) return;
     this.setCenterFromObject(this.workspace);
 
-    // 超出画布不展示
+    // Do not display beyond the canvas
     this.workspace.clone((cloned: fabric.Rect) => {
       this.canvas.clipPath = cloned;
       this.canvas.requestRenderAll();
@@ -186,14 +186,25 @@ class WorkspacePlugin implements IPluginTempl {
     if (cb) cb(this.workspace.left, this.workspace.top);
   }
 
+  // function findScaleToFit(object: fabric.Rect, containerWidth: number, containerHeight: number): number {
+  //   const objectAspect = object.width / object.height;
+  //   const containerAspect = containerWidth / containerHeight;
+
+  //   if (objectAspect > containerAspect) {
+  //     return containerWidth / object.width;
+  //   } else {
+  //     return containerHeight / object.height;
+  //   }
+  // }
+
   _getScale() {
-    return fabric.util.findScaleToFit(this.getWorkspase(), {
+    return fabric.util.findScaleToFit(this.getWorkspace(), {
       width: this.workspaceEl.offsetWidth,
       height: this.workspaceEl.offsetHeight,
     });
   }
 
-  // 放大
+  // enlarge
   big() {
     let zoomRatio = this.canvas.getZoom();
     zoomRatio += 0.05;
@@ -201,7 +212,7 @@ class WorkspacePlugin implements IPluginTempl {
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoomRatio);
   }
 
-  // 缩小
+  // zoom out
   small() {
     let zoomRatio = this.canvas.getZoom();
     zoomRatio -= 0.05;
@@ -212,21 +223,21 @@ class WorkspacePlugin implements IPluginTempl {
     );
   }
 
-  // 自动缩放
+  // Auto scaling
   auto() {
     const scale = this._getScale();
     this.setZoomAuto(scale * this.zoomRatio);
   }
 
-  // 1:1 放大
+  // 1:1 enlarge
   one() {
     this.setZoomAuto(1 * this.zoomRatio);
     this.canvas.requestRenderAll();
   }
 
-  setWorkspaseBg(color: string) {
-    const workspase = this.getWorkspase();
-    workspase?.set('fill', color);
+  setWorkspaceBg(color: string) {
+    const workspace = this.getWorkspace();
+    workspace?.set('fill', color);
   }
 
   _bindWheel() {

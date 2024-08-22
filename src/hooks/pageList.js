@@ -10,10 +10,10 @@ const repoSrc = import.meta.env.APP_APIHOST;
 import axios from 'axios';
 import qs from 'qs';
 
-// 分类API
+// Classified API
 const typeApi = (url) => axios.get(`${repoSrc}/api/${url}?pagination[pageSize]=200`);
 
-// 分页API
+// Pagling API
 const pageApi = (url, queryParams) => axios.get(`${repoSrc}/api/${url}?${queryParams}`);
 
 const getInfo = (id) => axios.get(`${repoSrc}/api/templs/${id}`);
@@ -85,9 +85,9 @@ export default function usePageList({
 }) {
   const pageLoading = ref(false);
 
-  // 关键词
+  // Key words
   const searchKeyWord = ref('');
-  // 分类
+  // Classification
   const typeValue = ref('');
   const typeList = ref([]);
   const typeText = computed(() => {
@@ -95,7 +95,7 @@ export default function usePageList({
     return info?.lable || '全部';
   });
 
-  // 素材列表
+  // Material list
   const pageData = ref([]);
   const page = ref(1);
   const pagination = reactive({
@@ -105,11 +105,11 @@ export default function usePageList({
     total: 0,
   });
 
-  // 是否到达底部
+  // Whether to reach the bottom
   const isDownBottm = computed(() => {
     return pagination.page === page.value && pagination.page >= pagination.pageCount;
   });
-  // 获取分类列表
+  // Obtain classification list
   const getTypeList = async () => {
     pageLoading.value = true;
     try {
@@ -183,7 +183,7 @@ export default function usePageList({
   const showScroll = ref(false);
   const scrollHeight = ref(0);
   const startPage = async () => {
-    // 滚动
+    // scroll
     const myTemplBox = document.querySelector(scrollElement);
     scrollHeight.value = myTemplBox.offsetHeight;
     showScroll.value = true;

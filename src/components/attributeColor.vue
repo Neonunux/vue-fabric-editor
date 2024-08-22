@@ -15,8 +15,10 @@
       mixinState.mSelectOneType !== 'group'
     "
   >
-    <Divider plain orientation="left"><h4>颜色</h4></Divider>
-    <!-- 通用属性 -->
+    <Divider plain orientation="left">
+      <h4>{{ $t('color') }}</h4>
+    </Divider>
+    <!-- Universal attribute -->
     <div class="bg-item">
       <Tooltip placement="top" theme="light">
         <div class="color-bar" :style="{ background: baseAttr.fill }"></div>
@@ -42,15 +44,15 @@ import { toRaw } from 'vue';
 const update = getCurrentInstance();
 const { fabric, mixinState, canvasEditor } = useSelect();
 const angleKey = 'gradientAngle';
-// 属性值
+// Attribute value
 const baseAttr = reactive({
   fill: '#ffffffff',
 });
 
-// 属性获取
+// Attribute acquisition
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
-  // 不是当前obj，跳过
+  // Not the current obj, skip
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject && mixinState.mSelectMode === 'one') {
     const fill = activeObject.get('fill');
@@ -87,7 +89,7 @@ const dropColor = (value) => {
 };
 
 const fabricGradientToCss = (val, activeObject) => {
-  // 渐变类型
+  // Gradient
   if (!val) return;
   const angle = activeObject.get(angleKey, val.degree);
   const colorStops = val.colorStops.map((item) => {
@@ -95,7 +97,7 @@ const fabricGradientToCss = (val, activeObject) => {
   });
   return `linear-gradient(${angle}deg, ${colorStops})`;
 };
-// css转Fabric渐变
+// CSS to Fabric gradient
 const cssToFabricGradient = (stops, width, height, angle) => {
   const gradAngleToCoords = (paramsAngle) => {
     const anglePI = -parseInt(paramsAngle, 10) * (Math.PI / 180);
@@ -110,7 +112,7 @@ const cssToFabricGradient = (stops, width, height, angle) => {
   const angleCoords = gradAngleToCoords(angle);
   return new fabric.Gradient({
     type: 'linear',
-    gradientUnits: 'pencentage', // pixels or pencentage 像素 或者 百分比
+    gradientUnits: 'pencentage', // pixels or pencentage Pixel or percentage
     coords: {
       x1: angleCoords.x1 * width,
       y1: angleCoords.y1 * height,
@@ -126,7 +128,7 @@ const selectCancel = () => {
 };
 
 onMounted(() => {
-  // 获取字体数据
+  // Get font data
   getObjectAttr();
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);

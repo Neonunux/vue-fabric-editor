@@ -24,7 +24,7 @@
       </template>
     </Dropdown>
 
-    <!-- 创建设计 -->
+    <!-- Create design -->
     <modalSzie
       :title="$t('importFiles.createDesign.title')"
       ref="modalSizeRef"
@@ -46,9 +46,9 @@ const modalSizeRef = ref(null);
 
 const clickHandler = (type) => {
   const handleMap = {
-    // 导入文件
+    // Importing files
     importFiles: canvasEditor.insert,
-    // 创建文件
+    // Create a file
     createDesign,
     // psd
     psd: () => {
@@ -68,7 +68,7 @@ const createDesign = () => {
 const customSizeCreate = async (w, h) => {
   const res = await createTmpl(w, h);
   routerToId(res.data.data.id);
-  Message.success('创建成功');
+  Message.success('Successfully created');
 };
 </script>
 <style scoped lang="less">

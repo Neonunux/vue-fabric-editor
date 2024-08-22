@@ -18,7 +18,7 @@ declare module '@kuaitu/core' {
   interface IEditor extends IPlugin {}
 }
 
-// 二维码生成参数
+// QR code generating parameters
 
 enum DotsType {
   rounded = 'rounded',
@@ -94,22 +94,22 @@ class QrCodePlugin implements IPluginTempl {
       qrOptions: {
         errorCorrectionLevel: option.errorCorrectionLevel,
       },
-      // 点
+      // point
       dotsOptions: {
         color: option.dotsColor,
         type: option.dotsType,
       },
-      // 三个角
+      // Three corners
       cornersSquareOptions: {
         color: option.cornersSquareColor,
         type: option.cornersSquareType,
       },
-      // 圆点选项
+      // Dot option
       cornersDotOptions: {
         color: option.cornersDotColor,
         type: option.cornersDotType,
       },
-      // 背景
+      // background
       backgroundOptions: {
         color: option.background,
       },
@@ -127,7 +127,7 @@ class QrCodePlugin implements IPluginTempl {
           extensionType: 'qrcode',
           extension: option,
         });
-        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 2);
+        imgEl.scaleToWidth(this.editor.getWorkspace().getScaledWidth() / 2);
         this.canvas.add(imgEl);
         this.canvas.setActiveObject(imgEl);
         this.editor.position('center');

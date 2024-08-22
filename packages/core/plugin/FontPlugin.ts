@@ -48,7 +48,7 @@ class FontPlugin implements IPluginTempl {
     return this.downFontByJSON(json);
   }
   getFontList() {
-    // 返回暂存字体
+    // Return to temporary font
     if (this.cacheList.length) {
       return Promise.resolve(this.cacheList);
     }
@@ -93,7 +93,7 @@ class FontPlugin implements IPluginTempl {
     return Promise.all(fontFamiliesAll);
   }
 
-  // 获取字体数据 新增字体样式使用
+  // Get font data and add font style to use
   getFontJson() {
     const activeObject = this.canvas.getActiveObject();
     if (activeObject) {

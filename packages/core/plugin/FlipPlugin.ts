@@ -30,7 +30,7 @@ export default class FlipPlugin implements IPluginTempl {
     if (selectedMode === SelectMode.ONE) {
       return [
         {
-          text: '翻转',
+          text: t('turn-over'),
           hotkey: '❯',
           subitems: [
             {

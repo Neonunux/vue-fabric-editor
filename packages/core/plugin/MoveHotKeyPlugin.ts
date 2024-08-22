@@ -14,7 +14,7 @@ class MoveHotKeyPlugin implements IPluginTempl {
   hotkeys: string[] = ['left', 'right', 'down', 'up'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
-  // 快捷键扩展回调
+  // Shortcut key extension recovery
   hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.type === 'keydown') {
       const { canvas } = this;

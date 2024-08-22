@@ -50,7 +50,7 @@ const canvasEditor = inject('canvasEditor');
 const fileList = ref([]);
 const isLogin = ref(false);
 const getFileListHandle = () => {
-  // 获取素材列表
+  // Obtaining material list
   getFileList()
     .then((res) => {
       fileList.value = res.data.data.map((item) => {
@@ -69,7 +69,7 @@ const getFileListHandle = () => {
 
 getFileListHandle();
 
-// 上传素材
+// Upload material
 const uploadImgHandule = () => {
   selectFiles({
     accept: 'image/*',
@@ -88,7 +88,7 @@ const uploadImgHandule = () => {
       });
   });
 };
-// 创建素材
+// Create material
 const createdH = (id, fileName) => {
   createdMaterial({
     data: {
@@ -97,7 +97,7 @@ const createdH = (id, fileName) => {
     },
   }).finally(getFileListHandle);
 };
-// 添加素材到画布
+// Add material to canvas
 const addImgByElement = async (e) => {
   const imgItem = await canvasEditor.createImgByElement(e.target);
   canvasEditor.addBaseType(imgItem, {
@@ -105,7 +105,7 @@ const addImgByElement = async (e) => {
   });
 };
 
-// 删除素材
+// Delete material
 const removeMaterialHandle = (id) => {
   removeMaterial(id).finally(getFileListHandle);
 };

@@ -9,7 +9,7 @@
   <div class="box attr-item-box" v-if="mixinState.mSelectMode === 'one'">
     <!-- <h3>位置信息</h3> -->
     <Divider plain orientation="left"><h4>位置信息</h4></Divider>
-    <!-- 通用属性 -->
+    <!-- Universal attribute -->
     <div v-show="baseType.includes(mixinState.mSelectOneType)">
       <Row :gutter="10">
         <Col flex="1">
@@ -54,7 +54,7 @@ import InputNumber from '@/components/inputNumber';
 const update = getCurrentInstance();
 const { mixinState, canvasEditor } = useSelect();
 
-// 可修改的元素
+// Modified elements
 const baseType = [
   'text',
   'i-text',
@@ -70,7 +70,7 @@ const baseType = [
   'thinTailArrow',
 ];
 
-// 属性值
+// Attribute value
 const baseAttr = reactive({
   opacity: 0,
   angle: 0,
@@ -80,10 +80,10 @@ const baseAttr = reactive({
   ry: 0,
 });
 
-// 属性获取
+// Attribute acquisition
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
-  // 不是当前obj，跳过
+  // Not the current obj, skip
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject && baseType.includes(activeObject.type)) {
     baseAttr.opacity = activeObject.get('opacity') * 100;
@@ -93,17 +93,17 @@ const getObjectAttr = (e) => {
   }
 };
 
-// 通用属性改变
+// Universal attribute change
 const changeCommon = (key, value) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
-    // 透明度特殊转换
+    // Special conversion of transparency
     if (key === 'opacity') {
       activeObject && activeObject.set(key, value / 100);
       canvasEditor.canvas.renderAll();
       return;
     }
-    // 旋转角度适配
+    // Rotating angle adaptation
     if (key === 'angle') {
       activeObject.rotate(value);
       canvasEditor.canvas.renderAll();
@@ -119,7 +119,7 @@ const selectCancel = () => {
 };
 
 onMounted(() => {
-  // 获取字体数据
+  // Get font data
   getObjectAttr();
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);

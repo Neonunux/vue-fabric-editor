@@ -28,7 +28,7 @@ import myTempl from './myTempl';
 const type = ref('templ');
 const isLogin = ref(false);
 const getFileListHandle = () => {
-  // 获取素材列表
+  // Obtaining material list
   getFileList()
     .then(() => {
       isLogin.value = true;

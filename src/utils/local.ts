@@ -1,5 +1,5 @@
 /**
- * get localStorage 获取本地存储
+ * get localStorage
  * @param { String } key
  */
 export function getLocal(key: string) {
@@ -9,7 +9,7 @@ export function getLocal(key: string) {
 }
 
 /**
- * set localStorage 设置本地存储
+ * set localStorage
  * @param { String } key
  * @param value
  */
@@ -20,7 +20,7 @@ export function setLocal(key: string, value: unknown) {
 }
 
 /**
- * remove localStorage 移除某个本地存储
+ * remove localStorage
  * @param { String } key
  */
 export function removeLocal(key: string) {
@@ -29,7 +29,7 @@ export function removeLocal(key: string) {
 }
 
 /**
- * clear localStorage 清除本地存储
+ * clear localStorage
  */
 export function clearLocal() {
   return localStorage.clear();

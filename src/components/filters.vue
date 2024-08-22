@@ -16,7 +16,7 @@
         {{ $t('filters.simple') }}
         <template #content>
           <div class="filter-box">
-            <!-- 无参数滤镜 -->
+            <!-- Parameter filter -->
             <div class="filter-item" v-for="(value, key) in state.noParamsFilters" :key="key">
               <img
                 :src="getImageUrl(key)"
@@ -36,7 +36,7 @@
       <Panel name="2">
         {{ $t('filters.complex') }}
         <template #content>
-          <!-- 有参数滤镜与组合参数滤镜 -->
+          <!-- There are parameter filters and combination parameter filters -->
           <div>
             <div
               class="filter-item has-params"
@@ -88,7 +88,7 @@ import { uiType, paramsFilters, combinationFilters } from '@/config/constants/fi
 
 const { fabric, mixinState, canvasEditor } = useSelect();
 const update = getCurrentInstance();
-// 无参数滤镜
+// Parameter filter
 const noParamsFilters = {
   BlackWhite: false,
   Brownie: false,
@@ -108,7 +108,7 @@ const state = reactive({
   type: '',
 });
 
-// 无参数滤镜修改状态
+// No parameter filter modification state
 const changeFilters = (type, value) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   state.noParamsFilters[type] = value;
@@ -121,17 +121,17 @@ const changeFilters = (type, value) => {
     _removeFilter(activeObject, type);
   }
 };
-// 有参数与组合滤镜修改
+// There are parameters and combination filter modifications
 const changeFiltersByParams = (type) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   const filtersAll = [...state.paramsFilters, ...state.combinationFilters];
   const moduleInfo = filtersAll.find((item) => item.type === type);
   if (moduleInfo.status) {
-    // 组合参数滤镜修改
+    // Combination parameter filter modification
     if (moduleInfo.handler) {
       _changeAttrByHandler(moduleInfo);
     } else {
-      // 有参数滤镜修改
+      // There is a parameter filter modification
       moduleInfo.params.forEach((paramsItem) => {
         _changeAttr(type, paramsItem.key, paramsItem.value);
       });
@@ -146,12 +146,12 @@ const handleSelectOne = () => {
   if (activeObject) {
     state.type = activeObject.type;
     if (state.type === 'image') {
-      // 无参数滤镜回显
+      // Parameter filter back
       Object.keys(noParamsFilters).forEach((type) => {
         state.noParamsFilters[type] = !!_getFilter(activeObject, type);
         update?.proxy?.$forceUpdate();
       });
-      // 有参数滤镜回显
+      // There are parameter filter back
       paramsFilters.forEach((filterItem) => {
         const moduleInfo = state.paramsFilters.find((item) => item.type === filterItem.type);
         const filterInfo = _getFilter(activeObject, filterItem.type);
@@ -161,12 +161,12 @@ const handleSelectOne = () => {
         });
       });
 
-      // 组合滤镜回显
+      // Combination filter back
       combinationFilters.forEach((filterItem) => {
         const moduleInfo = state.combinationFilters.find((item) => item.type === filterItem.type);
         const filterInfo = _getFilter(activeObject, filterItem.type);
         moduleInfo.status = !!filterInfo;
-        // 不回显具体参数
+        // Do not show specific parameters
       });
     }
     update?.proxy?.$forceUpdate();
@@ -181,12 +181,12 @@ onBeforeUnmount(() => {
   canvasEditor.off('selectOne', handleSelectOne);
 });
 
-// 图片地址拼接
+// Picture address stitching
 function getImageUrl(name) {
   return new URL(`../assets/filters/${name}.png`, import.meta.url).href;
 }
 
-// 设置滤镜值
+// Set the filter value
 function _changeAttr(type, key, value) {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   const itemFilter = _getFilter(activeObject, type);
@@ -202,9 +202,9 @@ function _changeAttr(type, key, value) {
 
 function _changeAttrByHandler(moduleInfo) {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
-  // 删除
+  // delete
   _removeFilter(activeObject, moduleInfo.type);
-  // 创建
+  // create
   const params = moduleInfo.params.map((item) => item.value);
   _createFilter(activeObject, moduleInfo.type, moduleInfo.handler(...params));
 }

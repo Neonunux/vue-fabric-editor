@@ -161,7 +161,7 @@ class GroupAlignPlugin implements IPluginTempl {
   xequation() {
     const { canvas } = this;
     const activeObject = canvas.getActiveObject() as fabric.ActiveSelection;
-    // width属性不准确，需要坐标换算
+    // The width attribute is inaccurate and requires coordinates conversion
     function getItemWidth(item: fabric.Object) {
       let x1 = Infinity,
         x2 = -Infinity;
@@ -176,7 +176,7 @@ class GroupAlignPlugin implements IPluginTempl {
       return x2 - x1;
     }
 
-    // 获取所有元素高度
+    // Get all element height
     function getAllItemHeight() {
       let count = 0;
       if (activeObject) {
@@ -187,7 +187,7 @@ class GroupAlignPlugin implements IPluginTempl {
 
       return count;
     }
-    // 获取平均间距
+    // Get the average distance
     function spacWidth() {
       const count = getAllItemHeight();
       if (activeObject) {
@@ -196,7 +196,7 @@ class GroupAlignPlugin implements IPluginTempl {
       }
     }
 
-    // 获取当前元素之前所有元素的高度
+    // Get the height of all elements before the current element
     function getItemLeft(i: number) {
       if (i === 0) return 0;
       let width = 0;
@@ -210,18 +210,18 @@ class GroupAlignPlugin implements IPluginTempl {
     }
     if (activeObject && activeObject.type === 'activeSelection') {
       const activeSelection = activeObject;
-      // 排序
+      // Sort
       activeSelection._objects.sort((a, b) => a.left - b.left);
 
-      // 平均间距计算
+      // Average spacing calculation
       const itemSpac = spacWidth() as number;
-      // 组原点高度
+      // The original point of the group
       const yHeight = Number(activeObject.width) / 2;
 
       activeObject.forEachObject((item: fabric.Object, i: number) => {
-        // 获取当前元素之前所有元素的高度
+        // Get the height of all elements before the current element
         const preHeight = getItemLeft(i);
-        // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
+        // Top distance between distance * index + previous element height -origin height
         const top = itemSpac * i + preHeight - yHeight;
         item.set('left', top);
       });
@@ -252,7 +252,7 @@ class GroupAlignPlugin implements IPluginTempl {
       top: 0,
       height: 0,
     };
-    // width属性不准确，需要坐标换算
+    // The width attribute is inaccurate and requires coordinates conversion
     function getItemHeight(item: fabric.Object) {
       let y1 = Infinity,
         y2 = -Infinity;
@@ -266,7 +266,7 @@ class GroupAlignPlugin implements IPluginTempl {
       }
       return y2 - y1;
     }
-    // 获取所有元素高度
+    // Get all element height
     function getAllItemHeight() {
       let count = 0;
       activeObject.forEachObject((item: fabric.Object) => {
@@ -274,14 +274,14 @@ class GroupAlignPlugin implements IPluginTempl {
       });
       return count;
     }
-    // 获取平均间距
+    // Get the average distance
     function spacHeight() {
       const count = getAllItemHeight();
       const allSpac = activeObject.height - count;
       return allSpac / (activeObject._objects.length - 1);
     }
 
-    // 获取当前元素之前所有元素的高度
+    // Get the height of all elements before the current element
     function getItemTop(i: number) {
       if (i === 0) return 0;
       let height = 0;
@@ -293,18 +293,18 @@ class GroupAlignPlugin implements IPluginTempl {
 
     if (activeObject && activeObject.type === 'activeSelection') {
       const activeSelection = activeObject;
-      // 排序
+      // Sort
       activeSelection._objects.sort((a, b) => a.top - b.top);
 
-      // 平均间距计算
+      // Average spacing calculation
       const itemSpac = spacHeight();
-      // 组原点高度
+      // The original point of the group
       const yHeight = Number(activeObject.height) / 2;
 
       activeObject.forEachObject((item: fabric.Object, i: number) => {
-        // 获取当前元素之前所有元素的高度
+        // Get the height of all elements before the current element
         const preHeight = getItemTop(i);
-        // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
+        // Top distance between distance * index + previous element height - origin height
         const top = itemSpac * i + preHeight - yHeight;
         item.set('top', top);
       });

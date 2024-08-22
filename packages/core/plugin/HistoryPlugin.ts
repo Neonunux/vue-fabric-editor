@@ -9,6 +9,7 @@
 import { fabric } from 'fabric';
 import '../utils/fabric-history.js';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
+import { t } from '../utils/languages';
 
 type IPlugin = Pick<HistoryPlugin, 'undo' | 'redo' | 'historyUpdate'>;
 
@@ -43,7 +44,7 @@ class HistoryPlugin implements IPluginTempl {
     });
     window.addEventListener('beforeunload', (e) => {
       if (this.canvas.historyUndo.length > 0) {
-        (e || window.event).returnValue = '确认离开';
+        (e || window.event).returnValue = t('confirm-to-leave');
       }
     });
   }
@@ -53,7 +54,7 @@ class HistoryPlugin implements IPluginTempl {
     this.editor.emit('historyUpdate', historyUndo.length, historyRedo.length);
   }
 
-  // 导入模板之后，清理 History 缓存
+  // After importing the template, clean up the history cache
   hookImportAfter() {
     this.canvas.clearHistory(true);
     this.historyUpdate();
@@ -74,7 +75,7 @@ class HistoryPlugin implements IPluginTempl {
     this.historyUpdate();
   }
 
-  // 快捷键扩展回调
+  // Shortcut key extension recovery
   hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.type === 'keydown') {
       switch (eventName) {

@@ -81,9 +81,9 @@ const polygonPositionHandler = function (
 ) {
   const x = fabricObject.points[this.pointIndex].x - fabricObject.pathOffset.x,
     y = fabricObject.points[this.pointIndex].y - fabricObject.pathOffset.y;
-  // 求出在世界坐标系的位置
+  // Seeking the location of the coordinate system in the world
   return fabric.util.transformPoint(
-    new fabric.Point(x, y), // 物体坐标系下的位置
+    new fabric.Point(x, y), // The location of the object coordinate system
     fabric.util.multiplyTransformMatrices(
       fabricObject.canvas.viewportTransform,
       fabricObject.calcTransformMatrix()

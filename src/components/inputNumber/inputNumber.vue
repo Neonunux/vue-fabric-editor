@@ -13,81 +13,67 @@ const props = withDefaults(
   defineProps<{
     autofocus?: boolean;
     /**
-     * @zh 从 `formatter` 转换为数字，和 `formatter` 搭配使用
      * @en Convert from `formatter` to number, and use with `formatter`
      */
     parser?: (val: string) => string;
     /**
-     * @zh 定义输入框展示值
      * @en Define the display value of the input
      */
     formatter?: (val: string) => string;
     /**
-     * @zh 最小值
      * @en Min
      */
     min?: number;
     /**
-     * @zh 最大值
      * @en Max
      */
     max?: number;
     /**
-     * @zh 数字精度
      * @en Precision
      */
     precision?: number;
     /**
-     * @zh 数字变化步长
      * @en Number change step
      */
     step?: number;
     /**
-     * @zh 绑定值
      * @en Value
      */
     modelValue?: number;
     /**
-     * @zh 默认值（非受控模式）
      * @en Default value (uncontrolled mode)
      */
     defaultValue?: number;
     /**
-     * @zh 触发 `v-model` 的事件
      * @en Trigger event for `v-model`
      */
     modelEvent?: 'change' | 'input';
     /**
-     * @zh 模式（false：embed按钮内嵌模式，true：button左右按钮模式）
+     * @en Mode (FALSE: EMBED button embedded mode, TRUE: Button left and right buttons)
      */
     controlsOutside?: boolean;
     /**
-     * @zh 是否隐藏按钮（仅在`embed`模式可用）
      * @en Whether to hide the button (only available in `embed` mode)
      */
     hideButton?: boolean;
     downDisabled?: boolean;
     upDisabled?: boolean;
     /**
-     * @zh 输入框大小
      * @en Input size
      * @values 'small','large','default'
      * @defaultValue 'default'
      */
     size?: 'small' | 'large' | 'default';
     /**
-     * @zh 是否禁用
      * @en Whether to disable
      */
     disabled?: boolean;
     /**
-     * @zh 只读
      * @en Readonly
      * @version 3.33.1
      */
     readonly?: boolean;
     /**
-     * @zh 输入框提示文字
      * @en Input prompt text
      */
     placeholder?: string;
@@ -223,7 +209,7 @@ const nextStep = (method: StepMethods, event: Event) => {
   emit('on-change', nextValue, event);
 };
 
-// 步长重复定时器
+// Step Lay Repeated timer
 let repeatTimer = 0;
 const SPEED = 150;
 const clearRepeatTimer = () => {
@@ -241,7 +227,7 @@ const handleStepButton = (event: Event, method: StepMethods, needRepeat = false)
   event.preventDefault();
   inputRef.value?.focus();
   nextStep(method, event);
-  // 长按时持续触发
+  // Continuously triggers long press
   if (needRepeat) {
     repeatTimer = window.setTimeout(
       () => (event.target as HTMLElement).dispatchEvent(event),
@@ -333,7 +319,7 @@ const handleExceedRange = () => {
   emit('update:modelValue', finalValue);
 };
 
-// 滑动相关
+// Sliding correlation
 const appendLabelRef = ref<HTMLElement>();
 const prependLabelRef = ref<HTMLElement>();
 const useSwipe = (target: MaybeRefOrGetter<HTMLElement | null | undefined>) => {
@@ -397,13 +383,12 @@ watch(
   }
 );
 
-// 导出函数
+// Export function
 defineExpose({
   minus,
   plus,
   input: inputRef.value,
   /**
-   * @zh 使输入框获取焦点
    * @en Make the input box focus
    * @public
    */
@@ -411,7 +396,6 @@ defineExpose({
     inputRef.value?.focus();
   },
   /**
-   * @zh 使输入框失去焦点
    * @en Make the input box lose focus
    * @public
    */

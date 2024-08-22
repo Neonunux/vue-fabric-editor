@@ -78,7 +78,7 @@ import useSelect from '@/hooks/select';
 
 const { mixinState, canvasEditor } = useSelect();
 
-// 非单选时，禁止镜像操作
+// During non-single selection, mirror operation is prohibited
 const notSelectOneMode = () => {
   return mixinState.mSelectMode !== 'one';
 };

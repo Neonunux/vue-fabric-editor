@@ -8,10 +8,12 @@
 
 <template>
   <div v-if="mixinState.mSelectMode === 'multiple'" class="attr-item-box">
-    <!-- <h3>对齐</h3> -->
-    <Divider plain orientation="left"><h4>对齐</h4></Divider>
+    <!-- <h3>Alignment</h3> -->
+    <Divider plain orientation="left">
+      <h4>{{ $t('group.align') }}</h4>
+    </Divider>
     <div class="bg-item">
-      <!-- 水平对齐 -->
+      <!-- Level alignment -->
       <Tooltip :content="$t('attrSeting.align.left')">
         <Button @click="left" size="small" type="text">
           <leftIcon />
@@ -27,7 +29,7 @@
           <rightIcon />
         </Button>
       </Tooltip>
-      <!-- 垂直对齐 -->
+      <!-- Vertical alignment -->
       <Tooltip :content="$t('attrSeting.align.top')">
         <Button @click="top" size="small" type="text">
           <topIcon />
@@ -43,7 +45,7 @@
           <bottomIcon />
         </Button>
       </Tooltip>
-      <!-- 平均对齐 -->
+      <!-- Average alignment -->
       <Tooltip :content="$t('attrSeting.align.averageX')">
         <Button @click="xequation" size="small" type="text">
           <sxIcon />
@@ -76,35 +78,35 @@ import centeryIcon from '@/assets/icon/centery.svg';
 
 const { mixinState, canvasEditor } = useSelect();
 
-// 左对齐
+// Left-handed alignment
 const left = () => {
   canvasEditor.left();
 };
-// 右对齐
+// Right alignment
 const right = () => {
   canvasEditor.right();
 };
-// 水平居中对齐
+// Horizontal alignment
 const xcenter = () => {
   canvasEditor.xcenter();
 };
-// 垂直居中对齐
+// Vertical alignment
 const ycenter = () => {
   canvasEditor.ycenter();
 };
-// 顶部对齐
+// Top alignment
 const top = () => {
   canvasEditor.top();
 };
-// 底部对齐
+// Alignment at the bottom
 const bottom = () => {
   canvasEditor.bottom();
 };
-// 水平平均对齐
+// Average level alignment
 const xequation = () => {
   canvasEditor.xequation();
 };
-// 垂直平均对齐
+// Vertical average
 const yequation = () => {
   canvasEditor.yequation();
 };

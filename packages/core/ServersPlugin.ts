@@ -77,12 +77,12 @@ class ServersPlugin implements IPluginTempl {
 
   private _emitSelectEvent() {
     if (!this.canvas) {
-      throw TypeError('还未初始化');
+      throw TypeError('Not initialized yet');
     }
 
     const actives = this.canvas
       .getActiveObjects()
-      .filter((item) => !(item instanceof fabric.GuideLine)); // 过滤掉辅助线
+      .filter((item) => !(item instanceof fabric.GuideLine)); // Filter the auxiliary line
     if (actives && actives.length === 1) {
       this.selectedMode = SelectMode.ONE;
       this.editor.emit(SelectEvent.ONE, actives);
@@ -111,7 +111,7 @@ class ServersPlugin implements IPluginTempl {
     });
   }
 
-  // 设置path属性
+  // Set the PATH property
   renderITextPath(textPaths: Record<'id' | 'path', any>[]) {
     textPaths.forEach((item) => {
       const object = this.canvas.getObjects().find((o) => o.id === item.id);
@@ -124,31 +124,31 @@ class ServersPlugin implements IPluginTempl {
   }
 
   async loadJSON(jsonFile: string | object, callback?: () => void) {
-    // 确保元素存在id
+    // Make sure the element exists ID
     const temp = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
     const textPaths: Record<'id' | 'path', any>[] = [];
     temp.objects.forEach((item: any) => {
       !item.id && (item.id = uuid());
-      // 收集所有路径文本元素i-text，并设置path为null
+      // Collect all path text elements I-Text, and set PATH to NULL
       if (item.type === 'i-text' && item.path) {
         textPaths.push({ id: item.id, path: item.path });
         item.path = null;
       }
     });
 
-    // hookTransform遍历
+    // Hooktransform traversing
     const tempTransform = await this._transform(temp);
 
     jsonFile = JSON.stringify(tempTransform);
-    // 加载前钩子
+    // Before loading
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
-        // 把i-text对应的path加上
+        // Add the PATH corresponding to I-Text
         this.renderITextPath(textPaths);
         this.canvas.renderAll();
-        // 加载后钩子
+        // Hook after loading
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
-          // 修复导入带水印的json无法清除问题 #359
+          // Fixed the problem that the JSON with watermarks cannot be cleared #359
           this.editor?.updateDrawStatus &&
             typeof this.editor.updateDrawStatus === 'function' &&
             this.editor.updateDrawStatus(!!temp['overlayImage']);
@@ -200,7 +200,7 @@ class ServersPlugin implements IPluginTempl {
   }
 
   /**
-   * @description: 拖拽添加到画布
+   * @description: Drag and drag to the canvas
    * @param {Event} event
    * @param {Object} item
    */
@@ -238,7 +238,7 @@ class ServersPlugin implements IPluginTempl {
 
   async saveJson() {
     const dataUrl = this.getJson();
-    // 把文本text转为textgroup，让导入可以编辑
+    // Turn text text to textgroup, so that the import can be edited
     await transformText(dataUrl.objects);
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
@@ -342,13 +342,13 @@ class ServersPlugin implements IPluginTempl {
         this.canvas.remove(obj);
       }
     });
-    this.editor?.setWorkspaseBg('#fff');
+    this.editor?.setWorkspaceBg('#fff');
     this.canvas.discardActiveObject();
     this.canvas.renderAll();
   }
 
   destroy() {
-    console.log('pluginDestroy');
+    console.log('plugin destroyed');
   }
 }
 

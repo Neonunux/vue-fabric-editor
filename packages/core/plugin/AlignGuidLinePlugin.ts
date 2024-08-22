@@ -108,7 +108,7 @@ class AlignGuidLinePlugin implements IPluginTempl {
         // eslint-disable-next-line no-continue
         if (canvasObjects[i] === activeObject) continue;
 
-        // 排除辅助线
+        // Exclude the auxiliary line
         if (
           activeObject instanceof fabric.GuideLine &&
           canvasObjects[i] instanceof fabric.GuideLine
@@ -266,7 +266,7 @@ class AlignGuidLinePlugin implements IPluginTempl {
     });
 
     canvas.on('before:render', () => {
-      // fix 保存图片时报错
+      // fix Save the picture Times wrong
       if (canvas.contextTop === null) {
         return;
       }

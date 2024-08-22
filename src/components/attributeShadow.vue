@@ -10,7 +10,7 @@
   <div class="box attr-item-box" v-if="mixinState.mSelectMode === 'one'">
     <!-- <h3>阴影</h3> -->
     <Divider plain orientation="left"><h4>阴影</h4></Divider>
-    <!-- 通用属性 -->
+    <!-- Universal attribute -->
     <div>
       <Row :gutter="10">
         <Col flex="1">
@@ -63,22 +63,22 @@ import InputNumber from '@/components/inputNumber';
 const update = getCurrentInstance();
 const { fabric, mixinState, canvasEditor } = useSelect();
 
-// 属性值
+// Attribute value
 const baseAttr = reactive({
   shadow: {},
 });
 
-// 属性获取
+// Attribute acquisition
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
-  // 不是当前obj，跳过
+  // Not the current obj, skip
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject) {
     baseAttr.shadow = activeObject.get('shadow') || {};
   }
 };
 
-// 通用属性改变
+// Universal attribute change
 const changeCommon = () => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
@@ -92,7 +92,7 @@ const selectCancel = () => {
 };
 
 onMounted(() => {
-  // 获取字体数据
+  // Get font data
   getObjectAttr();
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);

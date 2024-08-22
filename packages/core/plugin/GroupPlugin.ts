@@ -9,6 +9,7 @@
 import { fabric } from 'fabric';
 import { isGroup, isActiveSelection } from '../utils/utils';
 import { v4 as uuid } from 'uuid';
+import { t } from '../utils/languages';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
 type IPlugin = Pick<GroupPlugin, 'unGroup' | 'group'>;
@@ -23,11 +24,11 @@ class GroupPlugin implements IPluginTempl {
   static apis = ['unGroup', 'group'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
-  // 拆分组
+  // Disassembly
   unGroup() {
     const activeObject = this.canvas.getActiveObject() as fabric.Group;
     if (!activeObject) return;
-    // 先获取当前选中的对象，然后打散
+    // Get the currently selected object first, and then disperse
     const activeObjectList = activeObject.getObjects();
     activeObject.toActiveSelection();
     for (const item of activeObjectList) {
@@ -37,7 +38,7 @@ class GroupPlugin implements IPluginTempl {
   }
 
   group() {
-    // 组合元素
+    // Combined element
     const activeObj = this.canvas.getActiveObject() as fabric.ActiveSelection;
     if (!activeObj) return;
     const activegroup = activeObj.toGroup();
@@ -57,12 +58,17 @@ class GroupPlugin implements IPluginTempl {
     const activeObject = this.canvas.getActiveObject();
 
     if (isActiveSelection(activeObject)) {
-      return [{ text: '组合', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.group() }];
+      return [{ text: t('combination'), hotkey: 'Ctrl+V', disabled: false, onclick: () => this.group() }];
     }
 
     if (isGroup(activeObject)) {
       return [
-        { text: '拆分组合', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.unGroup() },
+        {
+          text: t('split-combination'),
+          hotkey: 'Ctrl+V',
+          disabled: false,
+          onclick: () => this.unGroup(),
+        },
       ];
     }
   }

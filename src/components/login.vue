@@ -8,7 +8,7 @@
 
 <template>
   <div class="box">
-    <!-- 登录后 -->
+    <!-- After login -->
     <Dropdown v-if="userName" @on-click="logoutHandle">
       <a href="javascript:void(0)">
         <Icon type="ios-person" size="20" />
@@ -21,14 +21,14 @@
         </DropdownMenu>
       </template>
     </Dropdown>
-    <!-- 登录前 -->
+    <!-- Before login -->
     <Button v-else shape="circle" icon="ios-person" @click="modal = true"></Button>
 
-    <!-- 登录注册弹框 -->
+    <!-- Login Register Bouncing Frame -->
     <Modal v-model="modal" footer-hide>
       <h3>{{ $t('login.title') }}</h3>
       <Tabs :animated="false" @on-click="switchTab">
-        <!-- 登录 -->
+        <!-- Log in -->
         <TabPane :label="$t('login.login')">
           <Form ref="loginForm" :model="formInline" :rules="ruleInline" class="form-box">
             <FormItem prop="identifier">
@@ -61,7 +61,7 @@
           </Form>
         </TabPane>
 
-        <!-- 注册 -->
+        <!-- register -->
         <TabPane :label="$t('login.register')">
           <Form
             ref="registerForm"
@@ -122,7 +122,7 @@ import { Message, Modal } from 'view-ui-plus';
 const modal = ref(false);
 const { t } = useI18n();
 const userName = ref('');
-// 获取用户详情
+// Get user details
 getUserInfo()
   .then((res) => {
     userName.value = res.data.username;
@@ -136,7 +136,7 @@ const reloadPage = () => {
     window.location.reload();
   }, 1000);
 };
-// 退出
+// quit
 const logoutHandle = () => {
   Modal.confirm({
     title: t('login.logoutTip'),
@@ -147,7 +147,7 @@ const logoutHandle = () => {
     },
   });
 };
-// 登录逻辑 ------------------
+// Login logic ------------------
 const formInline = reactive({
   identifier: '',
   password: '',
@@ -182,7 +182,7 @@ const loginHandle = () => {
   });
 };
 
-// 注册逻辑 分割线--------------------
+// Register Dividing line -------------------
 const registerFormInline = reactive({
   username: '',
   password: '',

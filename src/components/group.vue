@@ -9,7 +9,7 @@
 <template>
   <div v-if="isMultiple || isGroup" class="attr-item-box">
     <div class="bg-item">
-      <!-- 组合按钮 多选时不可用 -->
+      <!-- Combination button Do not use more when choosing -->
       <Button v-if="isMultiple" long :disabled="!isMultiple" @click="group" type="text">
         <svg
           t="1650848913991"
@@ -28,7 +28,7 @@
         </svg>
         {{ $t('attrSeting.group') }}
       </Button>
-      <!-- 拆分组合按钮，为单选且组元素时可用 -->
+      <!-- The split combination button is available for single -selection and group elements -->
       <Button v-if="isGroup" long :disabled="!isGroup" @click="unGroup" type="text">
         <svg
           t="1650848938557"
@@ -58,13 +58,13 @@ import useSelect from '@/hooks/select';
 
 const { mixinState, canvasEditor } = useSelect();
 
-// 单选且等于组元素
+// Single selection and equal to group elements
 let isGroup = computed(
   () => mixinState.mSelectMode === 'one' && mixinState.mSelectOneType === 'group'
 );
-// 是否为多选
+// Whether it is multiple choice
 let isMultiple = computed(() => mixinState.mSelectMode === 'multiple');
-// 拆分组
+// Disassembly
 const unGroup = () => {
   canvasEditor.unGroup();
 };

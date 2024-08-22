@@ -10,7 +10,7 @@ import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import eslintPlugin from 'vite-plugin-eslint'; //导入包
+import eslintPlugin from 'vite-plugin-eslint'; // Imported package
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
 import autoImports from 'unplugin-auto-import/vite';
 import { resolve } from 'path';
@@ -29,11 +29,11 @@ const config = ({ mode }) => {
         imports: ['vue'],
         dts: './typings/auto-imports.d.ts',
         eslintrc: {
-          enabled: true, // 一般更新imports启动一次即可
+          enabled: true, // Generally update Imports to start once
         },
       }),
       vueSetupExtend(),
-      // 增加下面的配置项,这样在运行时就能检查eslint规范
+      // Add the following configuration items, so that you can check the ESLint specification during runtime
       eslintPlugin({
         include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
       }),
@@ -78,14 +78,14 @@ const config = ({ mode }) => {
       postcss: {
         plugins: [
           autoprefixer({
-            // 自动添加前缀
+            // Automatically add prefix
             overrideBrowserslist: [
               'Android 4.1',
               'iOS 7.1',
               'Chrome > 31',
               'ff > 31',
               'ie >= 8',
-              'last 2 versions', // 所有主流浏览器最近2个版本
+              'last 2 versions', // All mainstream browsers last 2 versions
             ],
           }),
         ],

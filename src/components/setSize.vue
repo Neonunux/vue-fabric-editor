@@ -27,7 +27,7 @@
     </Form>
 
     <!-- <Divider plain></Divider> -->
-    <!-- 修改尺寸 -->
+    <!-- Modify the size -->
     <modalSzie :title="$t('setSizeTip')" ref="modalSizeRef" @set="handleConfirm"></modalSzie>
   </div>
 </template>

@@ -21,7 +21,7 @@ fabric.Arrow = fabric.util.createClass(fabric.Line, {
   _render(ctx) {
     this.callSuper('_render', ctx);
     ctx.save();
-    // 乘或除对应的scaleX(Y)，抵消元素放缩造成的影响，使箭头不会变形
+    // Multiply or divide the corresponding scaleX(Y) to offset the impact of element scaling so that the arrow will not be deformed.
     ctx.scale(1 / this.scaleX, 1 / this.scaleY);
     const xDiff = (this.x2 - this.x1) * this.scaleX;
     const yDiff = (this.y2 - this.y1) * this.scaleY;

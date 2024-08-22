@@ -22,7 +22,7 @@ class DeleteHotKeyPlugin implements IPluginTempl {
   hotkeys: string[] = ['backspace'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
-  // 快捷键扩展回调
+  // Shortcut key extension recovery
   hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.type === 'keydown' && eventName === 'backspace') {
       this.del();
@@ -42,7 +42,10 @@ class DeleteHotKeyPlugin implements IPluginTempl {
   contextMenu() {
     const activeObject = this.canvas.getActiveObject();
     if (activeObject) {
-      return [null, { text: '删除', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.del() }];
+      return [
+        null,
+        { text: t('delete'), hotkey: 'Ctrl+V', disabled: false, onclick: () => this.del() },
+      ];
     }
   }
 

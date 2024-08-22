@@ -7,7 +7,7 @@ const onEditPolygon = () => {
   if (obj && obj.type === 'polygon') {
     canvasEditor.activeEdit();
   } else {
-    Message.warning('请检查选择polygon');
+    Message.warning('Please check to select Polygon');
   }
 };
 </script>

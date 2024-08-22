@@ -9,7 +9,7 @@
   <div class="box attr-item-box" v-if="mixinState.mSelectMode === 'one' && !isGroup">
     <!-- <h3>边框</h3> -->
     <Divider plain orientation="left"><h4>边框</h4></Divider>
-    <!-- 通用属性 -->
+    <!-- Universal attribute -->
     <div>
       <Row :gutter="12">
         <Col flex="1">
@@ -64,7 +64,7 @@ const update = getCurrentInstance();
 const { mixinState, canvasEditor } = useSelect();
 
 const groupType = ['group'];
-// 属性值
+// Attribute value
 const baseAttr = reactive({
   stroke: '#fff',
   strokeWidth: 0,
@@ -147,11 +147,11 @@ const strokeDashList = [
 ];
 
 const isGroup = computed(() => groupType.includes(mixinState.mSelectOneType));
-// 属性获取
+// Attribute acquisition
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
 
-  // 不是当前obj，跳过
+  // Not the current obj, skip
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject && !groupType.includes(activeObject.type)) {
     baseAttr.stroke = activeObject.get('stroke');
@@ -169,7 +169,7 @@ const getObjectAttr = (e) => {
   }
 };
 
-// 通用属性改变
+// Universal attribute change
 const changeCommon = (key, value) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
@@ -179,7 +179,7 @@ const changeCommon = (key, value) => {
   }
 };
 
-// 边框设置
+// Frame settings
 const borderSet = (key) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
@@ -194,7 +194,7 @@ const selectCancel = () => {
 };
 
 onMounted(() => {
-  // 获取字体数据
+  // Get font data
   getObjectAttr();
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);

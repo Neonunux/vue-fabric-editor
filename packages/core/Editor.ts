@@ -20,11 +20,11 @@ class Editor extends EventEmitter {
   private pluginMap: {
     [propName: string]: IPluginTempl;
   } = {};
-  // 自定义事件
+  // Custom event
   private customEvents: string[] = [];
-  // 自定义API
+  // Custom API
   private customApis: string[] = [];
-  // 生命周期函数名
+  // Life cycle function name
   private hooks: IEditorHooksType[] = [
     'hookImportBefore',
     'hookImportAfter',
@@ -50,12 +50,12 @@ class Editor extends EventEmitter {
     return this.canvas;
   }
 
-  // 引入组件
+  // Introduce component
   use(plugin: IPluginTempl, options?: IPluginOption) {
     if (this._checkPlugin(plugin) && this.canvas) {
       this._saveCustomAttr(plugin);
       const pluginRunTime = new (plugin as IPluginClass)(this.canvas, this, options || {});
-      // 添加插件名称
+      // Add plug-in name
       pluginRunTime.pluginName = plugin.pluginName;
       this.pluginMap[plugin.pluginName] = pluginRunTime;
       this._bindingHooks(pluginRunTime);
@@ -64,7 +64,7 @@ class Editor extends EventEmitter {
     }
   }
 
-  destory() {
+  destroy() {
     this.canvas = null;
     this.contextMenu = null;
     this.pluginMap = {};
@@ -72,35 +72,35 @@ class Editor extends EventEmitter {
     this.customApis = [];
     this.hooksEntity = {};
   }
-  // 获取插件
+  // Obtain a plug-in
   getPlugin(name: string) {
     if (this.pluginMap[name]) {
       return this.pluginMap[name];
     }
   }
 
-  // 检查组件
+  // Inspection component
   private _checkPlugin(plugin: IPluginTempl) {
     const { pluginName, events = [], apis = [] } = plugin;
-    //名称检查
+    // Name inspection
     if (this.pluginMap[pluginName]) {
-      throw new Error(pluginName + '插件重复初始化');
+      throw new Error(pluginName + 'Plug-in repeated initialization');
     }
     events.forEach((eventName: string) => {
       if (this.customEvents.find((info) => info === eventName)) {
-        throw new Error(pluginName + '插件中' + eventName + '重复');
+        throw new Error(pluginName + 'Plug-in' + eventName + 'repeat');
       }
     });
 
     apis.forEach((apiName: string) => {
       if (this.customApis.find((info) => info === apiName)) {
-        throw new Error(pluginName + '插件中' + apiName + '重复');
+        throw new Error(pluginName + 'Plug-in' + apiName + 'repeat');
       }
     });
     return true;
   }
 
-  // 绑定hooks方法
+  // Method for binding hooks
   private _bindingHooks(plugin: IPluginTempl) {
     this.hooks.forEach((hookName) => {
       const hook = plugin[hookName];
@@ -109,30 +109,30 @@ class Editor extends EventEmitter {
           // console.log(hookName, ...arguments);
           // eslint-disable-next-line prefer-rest-params
           const result = hook.apply(plugin, [...arguments]);
-          // hook 兼容非 Promise 返回值
+          // HOOK is compatible with non -Promise return value
           return (result as any) instanceof Promise ? result : Promise.resolve(result);
         });
       }
     });
   }
 
-  // 绑定快捷键
+  // Binding shortcut keys
   private _bindingHotkeys(plugin: IPluginTempl) {
     plugin?.hotkeys?.forEach((keyName: string) => {
-      // 支持 keyup
+      // support keyup
       hotkeys(keyName, { keyup: true }, (e) => {
         plugin.hotkeyEvent && plugin.hotkeyEvent(keyName, e);
       });
     });
   }
 
-  // 保存组件自定义事件与API
+  // Save the component custom event and API
   private _saveCustomAttr(plugin: IPluginTempl) {
     const { events = [], apis = [] } = plugin;
     this.customApis = this.customApis.concat(apis);
     this.customEvents = this.customEvents.concat(events);
   }
-  // 代理API事件
+  // Agent API event
   private _bindingApis(pluginRunTime: IPluginTempl) {
     const { apis = [] } = (pluginRunTime.constructor as any) || {};
     apis.forEach((apiName: string) => {
@@ -143,7 +143,7 @@ class Editor extends EventEmitter {
     });
   }
 
-  // 右键菜单
+  // Right-click menu
   private _bindContextMenu() {
     this.canvas &&
       this.canvas.on('mouse:down', (opt) => {
@@ -161,7 +161,7 @@ class Editor extends EventEmitter {
       });
   }
 
-  // 渲染右键菜单
+  // Right-click menu
   private _renderMenu(opt: { e: MouseEvent }, menu: IPluginMenu[]) {
     if (menu.length !== 0 && this.contextMenu) {
       this.contextMenu.hideAll();
@@ -170,7 +170,7 @@ class Editor extends EventEmitter {
     }
   }
 
-  // 生命周期事件
+  // Life cycle event
   _initActionHooks() {
     this.hooks.forEach((hookName) => {
       this.hooksEntity[hookName] = new AsyncSeriesHook(['data']);
@@ -186,7 +186,7 @@ class Editor extends EventEmitter {
     this.use(ServersPlugin);
   }
 
-  // 解决 listener 为 undefined 的时候卸载错误
+  // Uninstall the error when solving the Listener to UNDEFINED
   off(eventName: string, listener: any): this {
     // noinspection TypeScriptValidateTypes
     return listener ? super.off(eventName, listener) : this;
@@ -194,3 +194,50 @@ class Editor extends EventEmitter {
 }
 
 export default Editor;
+/*
+const HooksManager = require('./hooksManager');
+
+describe('HooksManager', () => {
+  let hooksManager;
+  let mockPlugin;
+
+  beforeEach(() => {
+    hooksManager = new HooksManager();
+
+    mockPlugin = {
+      pluginName: 'testPlugin',
+      hook1: jest.fn((arg) => arg),
+      hook2: jest.fn((arg) => Promise.resolve(arg)),
+    };
+  });
+
+  test('should bind sync hook correctly', async () => {
+    hooksManager._bindingHooks(mockPlugin);
+
+    // Trigger the hook to test if it was bound correctly
+    const result = await hooksManager.hooksEntity.hook1.promise('testArg');
+
+    expect(mockPlugin.hook1).toHaveBeenCalledWith('testArg');
+    expect(result).toBe('testArg');
+  });
+
+  test('should bind async hook correctly', async () => {
+    hooksManager._bindingHooks(mockPlugin);
+
+    // Trigger the hook to test if it was bound correctly
+    const result = await hooksManager.hooksEntity.hook2.promise('testArg');
+
+    expect(mockPlugin.hook2).toHaveBeenCalledWith('testArg');
+    expect(result).toBe('testArg');
+  });
+
+  test('should handle non-existent hooks gracefully', () => {
+    delete mockPlugin.hook1;
+
+    hooksManager._bindingHooks(mockPlugin);
+
+    // Trigger the hook to test if it was bound correctly
+    expect(hooksManager.hooksEntity.hook1.taps.length).toBe(0);
+  });
+});
+*/

@@ -21,7 +21,7 @@
             style="width: 100%"
             :style="{ background: value }"
           >
-            <!-- tabindex="-1" 是元素可以触发 keydown 事件 -->
+            <!-- tabindex="-1" It is the element that can trigger the keydown event -->
             <div
               v-for="(gradient, index) in gradients"
               :key="index"
@@ -114,7 +114,7 @@ const props = defineProps({
 
   modes: {
     type: Array,
-    default: () => ['纯色', '渐变'], // 图案
+    default: () => ['纯色', '渐变'], // pattern
   },
 
   defaultColor: {
@@ -135,7 +135,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:value', 'change', 'native-pick', 'blur']);
 
-const mode = ref(parseBackgroundValue(props.value)); // 颜色、渐变、图片
+const mode = ref(parseBackgroundValue(props.value)); // Color, gradient, picture
 const angle = ref(90);
 const gradients = ref([]);
 const hsla = reactive({ h: 0, s: 0, l: 0, a: 0 });
@@ -160,11 +160,11 @@ let sliderHuxMoveable = null;
 let sliderAlphaMoveable = null;
 let mousedownGradientPointer = null;
 let backendHex = null;
-// 是否可以改变 palette sliderHux sliderAlpha 的 pointer 位置
+// Whether it can change palette sliderHux sliderAlpha of pointer Location
 let canChangeHSLAPointerPos = true;
 let canChangeHSLAPointerPosTimer = null;
 
-const predefine = ref([]); // 历史记录
+const predefine = ref([]); // history record
 
 const record = {
   color: props.defaultColor,
@@ -204,10 +204,10 @@ watch(
   }
 );
 
-// TODO: 添加选择历史记录
+// TODO: Add choice history
 const addHistory = debounce(async (value) => {
   const history = predefine.value;
-  // 如果已经存在就提到前面来，避免重复
+  // If you already exist, mention the previous one to avoid repeating
   const index = history.indexOf(value);
   if (index !== -1) {
     predefine.value.splice(index, 1);
@@ -215,7 +215,7 @@ const addHistory = debounce(async (value) => {
   if (history.length >= 4) {
     predefine.value.splice(history.length - 1, 1);
   }
-  // 把最新的颜色放在头部
+  // Put the latest color on the head
   const head = [value];
   predefine.value = head.concat(history);
 }, 300);
@@ -414,7 +414,7 @@ function changeMode(mode) {
     }
   }
 
-  // TODO: 图案
+  // TODO: pattern
 }
 
 function updateColorData(hexA) {
@@ -425,9 +425,9 @@ function updateColorData(hexA) {
 }
 
 function setColor(color) {
-  // 通过 palette sliderHux sliderAlpha 交互改变 pointer 位置
-  // 已经改变 hsla 的值并触发 update:value
-  // watch props.value 再调用当前方法时无需再更新 hsla
+  // Through the Palette SliderHux Slideralpha interaction to change the Pointer position
+  // has changed the value of HSLA and triggers update: value
+  // watch props.Value again does not need to update HSLA when the current method is called
   if (canChangeHSLAPointerPos) {
     const _hsla = hexA2HSLA(color);
     hsla.h = _hsla[0];
@@ -510,10 +510,10 @@ async function onClickStraw(val) {
     const color = val.target.value;
     result = color + (color.length === 7 ? 'ff' : '');
   } else {
-    const eyeDropper = new window.EyeDropper(); // 初始化一个EyeDropper对象
+    const eyeDropper = new window.EyeDropper(); // Initialize an Eyedropper object
     toolTip('按Esc可退出');
     try {
-      const drop = await eyeDropper.open(); // 开始拾取颜色
+      const drop = await eyeDropper.open(); // Start picking up the color
       const colorHexValue = drop.sRGBHex;
       result = colorHexValue + 'ff';
     } catch (e) {
@@ -536,7 +536,7 @@ const onInputBlur = (e) => {
 };
 
 function patchHexColor(str) {
-  let hex = str.replace(/\s/g, ''); // 移除空格
+  let hex = str.replace(/\s/g, ''); // Remove the space
   if (!str.startsWith('#')) {
     hex = '#' + hex;
   }

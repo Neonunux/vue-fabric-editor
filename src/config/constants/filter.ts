@@ -1,11 +1,11 @@
-// UI类型
+// UI type
 export const uiType = {
   SELECT: 'select',
   COLOR: 'color',
   NUMBER: 'number',
 };
 
-// 有参数滤镜
+// Parameter filter
 export const paramsFilters = [
   {
     type: 'Brightness',
@@ -152,7 +152,7 @@ export const paramsFilters = [
   },
 ];
 
-// 组合式参数滤镜
+// Combined parameter filter
 export const combinationFilters = [
   {
     type: 'Gamma',

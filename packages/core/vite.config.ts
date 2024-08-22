@@ -7,7 +7,7 @@
  * @LastEditTime: 2024-04-18 10:14:25
  */
 import { defineConfig } from 'vite';
-import eslintPlugin from 'vite-plugin-eslint'; //导入包
+import eslintPlugin from 'vite-plugin-eslint'; // Imported package
 import { resolve } from 'path';
 
 const config = () => {
@@ -22,7 +22,7 @@ const config = () => {
       outDir: resolve(__dirname, '../../dist'),
     },
     plugins: [
-      // 增加下面的配置项,这样在运行时就能检查eslint规范
+      // Add the following configuration items, so that you can check the ESLint specification during runtime
       eslintPlugin({
         include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
       }),

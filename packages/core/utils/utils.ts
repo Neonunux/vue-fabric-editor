@@ -9,8 +9,8 @@ import { v4 as uuid } from 'uuid';
 import { useClipboard, useFileDialog, useBase64 } from '@vueuse/core';
 
 /**
- * @description: 图片文件转字符串
- * @param {Blob|File} file 文件
+ * @description: Image file rotor string
+ * @param {Blob|File} file document
  * @return {String}
  */
 export function getImgStr(file: File | Blob): Promise<FileReader['result']> {
@@ -18,7 +18,7 @@ export function getImgStr(file: File | Blob): Promise<FileReader['result']> {
 }
 
 /**
- * @description: 选择文件
+ * @description: Select a document
  * @param {Object} options accept = '', capture = '', multiple = false
  * @return {Promise}
  */
@@ -37,15 +37,15 @@ export function selectFiles(options: {
 }
 
 /**
- * @description: 创建图片元素
- * @param {String} str 图片地址或者base64图片
- * @return {Promise} element 图片元素
+ * @description: Create picture elements
+ * @param {String} str Picture address or base64 image
+ * @return {Promise} element Picture element
  */
 export function insertImgFile(str: string) {
   return new Promise((resolve) => {
     const imgEl = document.createElement('img');
     imgEl.src = str;
-    // 插入页面
+    // Insert page
     document.body.appendChild(imgEl);
     imgEl.onload = () => {
       resolve(imgEl);
@@ -108,7 +108,7 @@ export function shiftAngle(start: fabric.Point, end: fabric.Point) {
 }
 
 /**
- * 类型工具
+ * Type tool
  */
 export const isImage = (thing: unknown): thing is fabric.Image => {
   return thing instanceof fabric.Image;

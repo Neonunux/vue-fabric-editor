@@ -4,47 +4,47 @@ type IEditor = Editor;
 class FontPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
-  // 插件名称
+  // Plug-in name
   static pluginName = 'FontPlugin';
-  // 挂载API名称
+  // Mount API name
   static apis = ['downFontByJSON'];
-  // 发布事件
+  // Release event
   static events = ['textEvent1', 'textEvent2'];
-  // 快捷键 keyCode hotkeys-js
+  // shortcut key keyCode hotkeys-js
   public hotkeys: string[] = ['backspace', 'space'];
-  // 私有属性
+  // Private attributes
   repoSrc: string;
 
   constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
-    // 初始化
+    // Initialize
     this.canvas = canvas;
     this.editor = editor;
-    // 可插入外部配置
+    // Plug in external configuration
     this.repoSrc = config.repoSrc;
   }
 
-  // 钩子函数 hookImportAfter/hookSaveBefore/hookSaveAfter Promise
+  // Hook function hookImportAfter/hookSaveBefore/hookSaveAfter Promise
   hookImportBefore(json: string) {
     return this.downFontByJSON(json);
   }
-
-  // 挂载API方法
-  downFontByJSON() {
-    //
+  // Before saving the file
+  hookSaveBefore() {
+    console.log('pluginHookSaveBefore');
   }
-
-  // 私有方法 + 发布事件
-  _createFontCSS() {
-    const params = [];
-    this.editor.emit('textEvent1', params);
+  // Before saving the file
+  hookSaveAfter() {
+    console.log('pluginHookSaveAfter');
   }
-
-  // 右键菜单
+  // Shortcut key extension recovery
+  hotkeyEvent(eventName: string, e?: Event) {
+    console.log('pluginHotkeyEvent', eventName, e);
+  }
+  // Right-click menu extension
   contextMenu() {
     const selectedMode = this.editor.getSelectMode();
     if (selectedMode === SelectMode.ONE) {
       return [
-        null, // 分割线
+        null, // Section line
         {
           text: '翻转',
           hotkey: '❯',
@@ -65,17 +65,17 @@ class FontPlugin {
     }
   }
 
-  // 快捷键
+  // shortcut key
   hotkeyEvent(eventName: string, { type }: KeyboardEvent) {
-    // eventName：hotkeys中的属性 backspace、space
-    // type：keyUp keyDown
-    // code：hotkeys-js Code
+    // eventName: Attributes in hotkeys backspace、space
+    // type: keyUp keyDown
+    // code: hotkeys-js Code
     if (eventName === 'backspace' && type === 'keydown') {
       this.del();
     }
   }
 
-  // 注销
+  // Log out
   destroy() {
     console.log('pluginDestroy');
   }

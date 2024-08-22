@@ -23,8 +23,8 @@ export default function useSelectListen(canvasEditor: Editor) {
   const state = reactive<Selector>({
     mSelectMode: SelectMode.EMPTY,
     mSelectOneType: '',
-    mSelectId: '', // 选择id
-    mSelectIds: [], // 选择id
+    mSelectId: '', // Select ID
+    mSelectIds: [], // Select ID array
     mSelectActive: [],
   });
 

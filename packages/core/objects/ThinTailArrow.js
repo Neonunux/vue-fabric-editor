@@ -20,18 +20,18 @@ fabric.ThinTailArrow = fabric.util.createClass(fabric.Line, {
   },
   _render(ctx) {
     ctx.save();
-    // 乘或除对应的scaleX(Y)，抵消元素放缩造成的影响，使箭头不会变形
+    // Multiply or divide the corresponding scaleX(Y) to offset the impact of element scaling so that the arrow will not be deformed
     ctx.scale(1 / this.scaleX, 1 / this.scaleY);
     const xDiff = (this.x2 - this.x1) * this.scaleX;
     const yDiff = (this.y2 - this.y1) * this.scaleY;
     ctx.translate(-xDiff / 2, -yDiff / 2);
-    // 箭头方位角
+    // Arrow azimuth
     const angle = Math.atan2(yDiff, xDiff);
     ctx.rotate(angle);
-    // 箭头总长(最小长度是20)
+    // Total arrow length (minimum length is 20)
     let length = Math.hypot(xDiff, yDiff);
     length = length < 20 ? 20 : length;
-    // 绘制箭头
+    // draw arrow
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(length - 18, -5);

@@ -1,18 +1,18 @@
 module.exports = {
-  printWidth: 100, // 指定代码长度，超出换行
-  tabWidth: 2, // tab 键的宽度
-  useTabs: false, // 不使用tab
-  semi: true, // 结尾加上分号
-  singleQuote: true, // 使用单引号
-  quoteProps: 'as-needed', // 要求对象字面量属性是否使用引号包裹,(‘as-needed’: 没有特殊要求，禁止使用，'consistent': 保持一致 , preserve: 不限制，想用就用)
-  jsxSingleQuote: false, // jsx 语法中使用单引号
-  trailingComma: 'es5', // 确保对象的最后一个属性后有逗号
-  bracketSpacing: true, // 大括号有空格 { name: 'rose' }
-  jsxBracketSameLine: false, // 在多行JSX元素的最后一行追加 >
-  arrowParens: 'always', // 箭头函数，单个参数添加括号
-  requirePragma: false, // 是否严格按照文件顶部的特殊注释格式化代码
-  insertPragma: false, // 是否在格式化的文件顶部插入Pragma标记，以表明该文件被prettier格式化过了
-  proseWrap: 'preserve', // 按照文件原样折行
-  htmlWhitespaceSensitivity: 'ignore', // html文件的空格敏感度，控制空格是否影响布局
-  endOfLine: 'auto', // 结尾是 \n \r \n\r auto
+  printWidth: 100,
+  tabWidth: 2,
+  useTabs: false,
+  semi: true,
+  singleQuote: true,
+  quoteProps: 'as-needed', // See whether the objective quantity attribute of the object is wrapped in quotes, (‘as-indicate’: No special requirements, prohibited use, 'consistent': keep consistent, preserve: unlimited, use it if you want))
+  jsxSingleQuote: false,
+  trailingComma: 'es5',
+  bracketSpacing: true,
+  jsxBracketSameLine: false,
+  arrowParens: 'always',
+  requirePragma: false, // Whether the code is formatted by the special annotation on the top of the file
+  insertPragma: false, // Whether to insert the Pragma mark on the top of the format file to indicate that the file has been formatted by the prettier format
+  proseWrap: 'preserve', // Fold according to the original file
+  htmlWhitespaceSensitivity: 'ignore', // The space sensitivity of the html file, whether the control space affects the layout
+  endOfLine: 'auto', // The end is \n\r \n\r auto
 };

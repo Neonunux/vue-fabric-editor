@@ -2,9 +2,9 @@ import type { Rect } from './ruler';
 import { fabric } from 'fabric';
 
 /**
- * 计算尺子间距
- * @param zoom 缩放比例
- * @returns 返回计算出的尺子间距
+ * Calculate ruler spacing
+ * @param zoom scaling ratio
+ * @returns Returns the calculated ruler spacing
  */
 const getGap = (zoom: number) => {
   const zooms = [0.02, 0.03, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 18];
@@ -19,32 +19,32 @@ const getGap = (zoom: number) => {
 };
 
 /**
- * 线段合并
- * @param rect Rect数组
+ * Wire merger
+ * @param rect RECT array
  * @param isHorizontal
- * @returns 合并后的Rect数组
+ * @returns The merged RECT array
  */
 const mergeLines = (rect: Rect[], isHorizontal: boolean) => {
   const axis = isHorizontal ? 'left' : 'top';
   const length = isHorizontal ? 'width' : 'height';
-  // 先按照 axis 的大小排序
+  // Sort by the size of AXIS
   rect.sort((a, b) => a[axis] - b[axis]);
   const mergedLines = [];
   let currentLine = Object.assign({}, rect[0]);
   for (const item of rect) {
     const line = Object.assign({}, item);
     if (currentLine[axis] + currentLine[length] >= line[axis]) {
-      // 当前线段和下一个线段相交，合并宽度
+      // The current line segment intersects with the next segment, and the merger width
       currentLine[length] =
         Math.max(currentLine[axis] + currentLine[length], line[axis] + line[length]) -
         currentLine[axis];
     } else {
-      // 当前线段和下一个线段不相交，将当前线段加入结果数组中，并更新当前线段为下一个线段
+      // The current line segment does not intersect the next line segment, add the current line segment to the result array, and update the current line segment to the next line segment
       mergedLines.push(currentLine);
       currentLine = Object.assign({}, line);
     }
   }
-  // 加入数组
+  // Join the array
   mergedLines.push(currentLine);
   return mergedLines;
 };
@@ -137,7 +137,7 @@ const drawMask = (
 ) => {
   ctx.save();
   const { isHorizontal, left, top, width, height, backgroundColor } = options;
-  // 创建一个线性渐变对象
+  // Create a linear gradient object
   const gradient = isHorizontal
     ? ctx.createLinearGradient(left, height / 2, left + width, height / 2)
     : ctx.createLinearGradient(width / 2, top, width / 2, height + top);

@@ -8,6 +8,7 @@
 
 import { fabric } from 'fabric';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
+import { t } from '../utils/languages';
 
 type IPlugin = Pick<LayerPlugin, 'up' | 'down' | 'toFront' | 'toBack'>;
 
@@ -75,33 +76,33 @@ class LayerPlugin implements IPluginTempl {
     if (activeObject) {
       return [
         {
-          text: '图层管理',
+          text: t('layer-management'),
           hotkey: '❯',
           subitems: [
             {
-              text: '上一个',
+              text: t('previous'),
               hotkey: '',
               onclick: () => this.up(),
             },
             {
-              text: '下一个',
+              text: t('Next'),
               hotkey: '',
               onclick: () => this.down(),
             },
             {
-              text: '置顶',
+              text: t('Put on the top'),
               hotkey: '',
               onclick: () => this.toFront(),
             },
             {
-              text: '置底',
+              text: t('Boss'),
               hotkey: '',
               onclick: () => this.toBack(),
             },
           ],
         },
       ];
-      // return [{ text: '复制', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.clone() }];
+      // return [{ text: t('copy'), hotkey: 'Ctrl+V', disabled: false, onclick: () => this.clone() }];
     }
   }
 

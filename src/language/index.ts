@@ -7,15 +7,18 @@
  */
 import { createI18n } from 'vue-i18n';
 import zh from 'view-ui-plus/dist/locale/zh-CN';
-import en from 'view-ui-plus/dist/locale/en-US'; //新版本把'iview'改成'view-design'
+import en from 'view-ui-plus/dist/locale/en-US'; // New version handle'iview'Change to'view-design'
+import fr from 'view-ui-plus/dist/locale/fr-FR';
+import FR from './fr.json';
 import US from './en.json';
 import CN from './zh.json';
 import { getLocal, setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app';
 
 const messages = {
-  en: Object.assign(US, en), //将自己的英文包和iview提供的结合
-  zh: Object.assign(CN, zh), //将自己的中文包和iview提供的结合
+  fr: Object.assign(FR, fr),
+  en: Object.assign(US, en), // Combine your English bag and IView
+  zh: Object.assign(CN, zh), // Combine your own Chinese bag and IView
 };
 
 function getLocalLang() {
@@ -43,6 +46,7 @@ const i18n = createI18n({
 });
 
 export default i18n;
+
 export const t = (key: any) => {
   return i18n.global.t(key);
 };

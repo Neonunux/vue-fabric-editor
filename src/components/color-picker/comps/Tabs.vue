@@ -50,7 +50,7 @@ const tabs = ref([]);
 const sliderStyle = reactive({ width: 0, left: 0 });
 let tabWidth = 0;
 onMounted(() => {
-  // 初始化数据
+  // Initialization data
   tabWidth = 100 / tabs.value.length;
   sliderStyle.width = `${tabWidth}%`;
 
@@ -64,7 +64,7 @@ async function changeTab(index = -1) {
   }
   sliderStyle.left = `${tabWidth * index}%`;
 
-  // 切换 tab 内容
+  // Switch tab content
   try {
     await nextTick();
     preActiveTabVM?.exposed?.changeActive?.(false);

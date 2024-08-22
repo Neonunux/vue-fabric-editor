@@ -22,13 +22,13 @@
       />
     </div>
     <div class="setting-item font-selector">
-      <span class="mr-10px">选择字体</span>
+      <span class="mr-10px">{{ $t('waterMark.font-choice') }}</span>
       <Select class="w-320" v-model="waterMarkState.fontFamily" @on-change="changeFontFamily">
         <Option v-for="item in fontsList" :value="item.name" :key="`font-${item.name}`">
           <div class="font-item" v-if="!item.img">{{ item.name }}</div>
           <div class="font-item" v-else :style="`background-image:url('${item.img}');`">
             {{ !item.img ? item : '' }}
-            <!-- 解决无法选中问题 -->
+            <!-- Solve the problem that cannot be selected -->
             <span style="display: none">{{ item.name }}</span>
           </div>
         </Option>
@@ -87,7 +87,7 @@ enum POSITION {
   full = 'Full',
 }
 
-type IPosition = POSITION.lt | POSITION.lb | POSITION.rt | POSITION.rb | POSITION.full; // lt 左上 lr 左上 rt 右上  rb 右下 full 平铺 后续可扩展其他功能
+type IPosition = POSITION.lt | POSITION.lb | POSITION.rt | POSITION.rb | POSITION.full; // LT upper left LR, upper left RT RT RB Right Full FULL Full Full Future Followed on Extended Other Functions
 
 type IDrawOps = {
   text: string;
@@ -106,10 +106,10 @@ canvasEditor.getFontList().then((list: any) => {
 const waterMarkState: any = reactive({
   text: '',
   size: 24,
-  isRotate: 0, // 组件不支持boolean
-  fontFamily: '汉体', // 可考虑自定义字体
-  color: '#ccc', // 可考虑自定义颜色
-  position: POSITION.lt, // lt 左上 rt 右上 lb 左下  rb 右下 full 平铺
+  isRotate: 0, // The component does not support BOOLEAN
+  fontFamily: '汉体', // Consider custom fonts
+  color: '#ccc', // Consider custom color
+  position: POSITION.lt, // LT upper left RT RT LB Lao lower left RB right lower right full
 });
 
 const showWaterMadal = ref(false);
@@ -128,7 +128,7 @@ const onCleanUpWaterMark = () => {
 const onModalOk = async () => {
   if (!waterMarkState.text) return Message.warning('水印名字不能为空');
   const ops: IDrawOps = cloneDeep(waterMarkState);
-  ops.isRotate = !!ops.isRotate; // 转为对应类型  后续再统一处理类型
+  ops.isRotate = !!ops.isRotate; // Turn to the corresponding type follow-up and then unified processing type
   await canvasEditor.drawWaterMark(ops);
   showWaterMadal.value = false;
   // onMadalCancel();

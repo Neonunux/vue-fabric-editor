@@ -1,8 +1,8 @@
 /**
- * 获取多边形顶点坐标
- * @param edges 变数
- * @param radius 半径
- * @returns 坐标数组
+ * Get the polygon vertex coordinates
+ * @param edges variable
+ * @param radius radius
+ * @returns Coordinate array
  */
 const getPolygonVertices = (edges: number, radius: number) => {
   const vertices = [];
@@ -12,7 +12,7 @@ const getPolygonVertices = (edges: number, radius: number) => {
     rotationAdjustment += interiorAngle / 2;
   }
   for (let i = 0; i < edges; i++) {
-    // 画圆取顶点坐标
+    // Painting circular to take a vertex coordinates
     const rad = i * interiorAngle + rotationAdjustment;
     vertices.push({
       x: Math.cos(rad) * radius,

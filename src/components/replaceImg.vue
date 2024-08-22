@@ -25,15 +25,15 @@ const update = getCurrentInstance();
 const { mixinState, canvasEditor } = useSelect();
 const type = ref('');
 
-// 替换图片
+// Replace the picture
 const repleace = async () => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject && activeObject.type === 'image') {
-    // 图片
+    // picture
     const [file] = await selectFiles({ accept: 'image/*', multiple: false });
-    // 转字符串
+    // Rotor string
     const fileStr = await getImgStr(file);
-    // 字符串转El
+    // String string to EL
     const imgEl = await insertImgFile(fileStr);
     const width = activeObject.get('width');
     const height = activeObject.get('height');

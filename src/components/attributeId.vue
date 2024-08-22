@@ -8,8 +8,8 @@
 
 <template>
   <div class="box attr-item-box" v-if="mixinState.mSelectMode === 'one'">
-    <!-- <h3>数据</h3> -->
-    <Divider plain orientation="left"><h4>数据</h4></Divider>
+    <!-- <h3>data</h3> -->
+    <Divider plain orientation="left"><h4>data</h4></Divider>
 
     <Form :label-width="40" class="form-wrap">
       <FormItem :label="$t('attributes.id')">
@@ -48,16 +48,16 @@ import useSelect from '@/hooks/select';
 const update = getCurrentInstance();
 const { mixinState, canvasEditor } = useSelect();
 
-// 属性值
+// Attribute value
 const baseAttr = reactive({
   id: 0,
   linkData: ['', ''],
 });
 
-// 属性获取
+// Attribute acquisition
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
-  // 不是当前obj，跳过
+  // Not the current obj, skip
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject) {
     baseAttr.id = activeObject.get('id');
@@ -65,7 +65,7 @@ const getObjectAttr = (e) => {
   }
 };
 
-// 通用属性改变
+// Universal attribute change
 const changeCommon = (key, value) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
@@ -79,7 +79,7 @@ const selectCancel = () => {
 };
 
 onMounted(() => {
-  // 获取字体数据
+  // Get font data
   getObjectAttr();
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);

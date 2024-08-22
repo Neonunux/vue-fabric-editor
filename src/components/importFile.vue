@@ -15,16 +15,16 @@
       </a>
       <template #list>
         <DropdownMenu>
-          <!-- 图片 -->
+          <!-- picture -->
           <DropdownItem name="insertImg">{{ $t('insertFile.insert_picture') }}</DropdownItem>
           <!-- SVG -->
           <DropdownItem name="insertSvg">{{ $t('insertFile.insert_SVG') }}</DropdownItem>
-          <!-- SVG 字符串 -->
+          <!-- SVG String -->
           <DropdownItem name="insertSvgStrModal">{{ $t('insertFile.insert_SVGStr') }}</DropdownItem>
         </DropdownMenu>
       </template>
     </Dropdown>
-    <!-- 插入字符串svg元素 -->
+    <!-- Insert a string SVG element -->
     <Modal
       v-model="state.showModal"
       :title="$t('insertFile.modal_tittle')"
@@ -54,7 +54,7 @@ const state = reactive({
   svgStr: '',
 });
 const HANDLEMAP = {
-  // 插入图片
+  // Insert picture
   insertImg: function () {
     selectFiles({ accept: 'image/*', multiple: true }).then((fileList) => {
       Array.from(fileList).forEach((item) => {
@@ -64,7 +64,7 @@ const HANDLEMAP = {
       });
     });
   },
-  // 插入Svg
+  // Insert SVG
   insertSvg: function () {
     selectFiles({ accept: '.svg', multiple: true }).then((fileList) => {
       Array.from(fileList).forEach((item) => {
@@ -74,12 +74,12 @@ const HANDLEMAP = {
       });
     });
   },
-  // 插入SVG元素
+  // Insert SVG element
   insertSvgStrModal: function () {
     state.svgStr = '';
     state.showModal = true;
   },
-  // 插入字符串元素
+  // Insert string element
   insertSvgStr: function () {
     fabric.loadSVGFromString(state.svgStr, (objects, options) => {
       const item = fabric.util.groupSVGElements(objects, {
@@ -97,12 +97,12 @@ const insertTypeHand = (type) => {
   const cb = HANDLEMAP[type];
   cb && typeof cb === 'function' && cb();
 };
-// 插入图片文件
+// Insert picture file
 function insertImgFile(file) {
   if (!file) throw new Error('file is undefined');
   const imgEl = document.createElement('img');
   imgEl.src = file;
-  // 插入页面
+  // Insert page
   document.body.appendChild(imgEl);
   imgEl.onload = async () => {
     const imgItem = await canvasEditor.createImgByElement(imgEl);
@@ -113,7 +113,7 @@ function insertImgFile(file) {
   };
 }
 
-// 插入文件元素
+// Insert file element
 function insertSvgFile(svgFile) {
   if (!svgFile) throw new Error('file is undefined');
   fabric.loadSVGFromURL(svgFile, (objects, options) => {

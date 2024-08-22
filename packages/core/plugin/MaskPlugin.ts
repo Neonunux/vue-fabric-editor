@@ -36,7 +36,7 @@ class MaskPlugin implements IPluginTempl {
   }
 
   /**
-   * @desc 蒙版开关
+   * @desc Mask switch
    * @param val Boolean false
    */
   workspaceMaskToggle() {
@@ -44,7 +44,7 @@ class MaskPlugin implements IPluginTempl {
     if (!workspaceMask) {
       this.initMask();
     } else {
-      // 如果有 则删除
+      // If there is, delete
       workspaceMask && this.canvas.remove(workspaceMask);
       this.workspace?.clone((cloned: fabric.Rect) => {
         this.canvas.clipPath = cloned;
@@ -55,22 +55,22 @@ class MaskPlugin implements IPluginTempl {
     }
   }
   /**
-   * @desc 获取蒙版开关
+   * @desc Get the mask switch
    */
   getworkspaceMaskStatus() {
     return this.coverMask !== null;
   }
 
   /**
-   * @desc 获取蒙版
+   * @desc Get the mask
    * @returns Object
    */
   getWorkspaceMask() {
     return this.canvas.getObjects().find((item) => item.id === 'coverMask') as fabric.Rect;
   }
 
-  // 返回workspace对象
-  getWorkspase() {
+  // Return to workspace object
+  getWorkspace() {
     return this.canvas.getObjects().find((item) => item.id === 'workspace') as fabric.Rect;
   }
 
@@ -82,7 +82,7 @@ class MaskPlugin implements IPluginTempl {
     const zoom = this.canvas.getZoom();
     let zoomToPointNumber = zoom;
     if (hack) {
-      // 比较hack的方法，判断为fabric内部的数据更新问题
+      // Compare the method of hack, judge the data update problem inside Fabric
       zoomToPointNumber += 0.0000001 * (this.hackFlag ? 1 : -1);
       this.hackFlag = !this.hackFlag;
     }
@@ -109,7 +109,7 @@ class MaskPlugin implements IPluginTempl {
   }
 
   initMask(needBindLoadJSON = true) {
-    this.workspace = this.getWorkspase();
+    this.workspace = this.getWorkspace();
     if (!this.workspace) {
       throw new Error('MaskPlugin must be used after WorkspacePlugin!');
     }

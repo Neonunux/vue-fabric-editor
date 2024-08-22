@@ -197,7 +197,7 @@
           ></path>
         </svg>
       </span>
-      <!-- 隐藏功能入口（路径文本） -->
+      <!-- Hide function entrance (path text) -->
       <!-- <span
         @click="drawPathText"
         :class="state.isDrawingLineMode && state.lineType === 'pathText' && 'bg'"
@@ -278,7 +278,7 @@ const LINE_TYPE = {
   freeDraw: 'freeDraw',
   pathText: 'pathText',
 };
-// 默认属性
+// Default attribute
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
 
 const { t } = useI18n();
@@ -332,10 +332,10 @@ const addPolygon = (event) => {
     name: '多边形',
   });
   polygon.set({
-    // 创建完设置宽高，不然宽高会变成自动的值
+    // After the creation is created, the width height, otherwise the width and height will become an automatic value
     width: 400,
     height: 400,
-    // 关闭偏移
+    // Turn off
     pathOffset: {
       x: 0,
       y: 0,
@@ -453,7 +453,7 @@ const ensureObjectSelEvStatus = (evented, selectable) => {
   });
 };
 
-// 退出绘制状态
+// Exit the drawing status
 const cancelDraw = () => {
   if (!state.isDrawingLineMode) return;
   state.isDrawingLineMode = false;

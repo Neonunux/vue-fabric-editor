@@ -15,28 +15,28 @@ export function setupGuideLine() {
     stroke: '#4bec13',
     originX: 'center',
     originY: 'center',
-    padding: 4, // 填充，让辅助线选择范围更大，方便选中
+    padding: 4, // Fill, make the auxiliary line selection larger, convenient for selection
     globalCompositeOperation: 'difference',
     axis: 'horizontal',
     // excludeFromExport: true,
 
     initialize(points: number, options: fabric.IGuideLineOptions) {
       const isHorizontal = options.axis === 'horizontal';
-      // 指针
+      // pointer
       this.hoverCursor = isHorizontal ? 'ns-resize' : 'ew-resize';
-      // 设置新的点
+      // Set a new point
       const newPoints = isHorizontal
         ? [-999999, points, 999999, points]
         : [points, -999999, points, 999999];
-      // 锁定移动
+      // Lock
       options[isHorizontal ? 'lockMovementX' : 'lockMovementY'] = true;
-      // 调用父类初始化
+      // Call the parent class initialization
       this.callSuper('initialize', newPoints, options);
 
-      // 绑定事件
+      // Binding event
       this.on('mousedown:before', (e: fabric.IEvent<MouseEvent>) => {
         if (this.activeOn === 'down') {
-          // 设置selectable:false后激活对象才能进行移动
+          // After setting selectable: False, the activation object can only be moved
           this.canvas && this.canvas.setActiveObject(this, e.e);
         }
       });
@@ -55,9 +55,9 @@ export function setupGuideLine() {
       });
 
       this.on('mouseup', (e) => {
-        // 移动到标尺上，移除辅助线
+        // Move to the ruler, remove the auxiliary line
         if (this.canvas && this.canvas.ruler.options.enabled && this.isPointOnRuler(e.e)) {
-          // console.log('移除辅助线', this);
+          // console.log('Remove the auxiliary line', this);
           this.canvas.remove(this);
           return;
         }

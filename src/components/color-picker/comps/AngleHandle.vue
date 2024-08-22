@@ -65,12 +65,12 @@ export default defineComponent({
         return;
       }
       const origin = { x: 27, y: 27 };
-      // 计算相对于原点的坐标差值
+      // Calculate the coordinate difference from the origin of the origin
       const deltaX = e.offsetX - origin.x;
       const deltaY = e.offsetY - origin.y;
-      // 计算夹角（弧度）
+      // Calculate angle (arc)
       const angleInRadians = Math.atan2(deltaY, deltaX);
-      // 将弧度转换为角度
+      // Convert the arc to angle
       const angleInDegrees = (angleInRadians * 180) / Math.PI;
       num.value = Math.round(angleInDegrees + 90);
     };

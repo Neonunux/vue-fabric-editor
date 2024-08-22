@@ -9,25 +9,25 @@
 import _ from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-// 入口文件
+// Entrance file
 
 async function psdToJson(psdFile) {
-  // 初始化
+  // initialization
   const json = getTransform();
 
-  // 设置背景
-  const { clipPath, workspase } = getClipPath(psdFile);
+  // Set background
+  const { clipPath, workspace } = getClipPath(psdFile);
   json.clipPath = clipPath;
-  json.objects.push(workspase);
+  json.objects.push(workspace);
 
-  // 拍平
+  // Flat
   const list = flattenTree(psdFile.children);
 
-  // 转换
+  // Convert
   const fabricJhildren = await psdChildrenTransform(list);
   json.objects.push(...fabricJhildren.reverse());
 
-  // 输出文件
+  // Output file
   const jsonStr = JSON.stringify(json, null, 2);
   return jsonStr;
 }
@@ -41,7 +41,7 @@ async function psdChildrenTransform(children) {
       return !item.isHidden;
     });
     return childrensFilter.map(async (item) => {
-      // 公共属性映射
+      // Public attribute mapping
       const commonAttr = baseUtils([
         'left',
         'top',
@@ -53,14 +53,14 @@ async function psdChildrenTransform(children) {
         ['id', uuid],
       ])(item);
 
-      // 类型映射
+      // Type mapping
       const typeList = [
         {
           sourceType: 'Layer',
           targetType: 'image',
           attr: [],
           async customTransform(item) {
-            // 图片遮罩
+            // Picture cover
             // const { maskData } = item.layerFrame.layerProperties;
             // let clipPath;
             // if (maskData) {
@@ -112,7 +112,7 @@ async function psdChildrenTransform(children) {
 }
 
 function getTransform() {
-  // 初始化
+  // initialization
   const json = {
     version: '5.3.0',
     objects: [],
@@ -128,7 +128,7 @@ function baseUtils(baseAttr) {
       desc: {},
     };
     baseAttr.forEach((attrType) => {
-      // 直接转换
+      // Direct conversion
       if (typeof attrType === 'string') {
         const value = _.get(item, attrType);
         _.set(attrs, attrType, value);
@@ -345,7 +345,7 @@ function getClipPath(psdFile) {
     selectable: true,
     hasControls: true,
   };
-  const workspase = {
+  const workspace = {
     type: 'rect',
     version: '5.3.0',
     originX: 'left',
@@ -383,7 +383,7 @@ function getClipPath(psdFile) {
     selectable: false,
     hasControls: true,
   };
-  return { clipPath, workspase };
+  return { clipPath, workspace };
 }
 
 async function getLayerBse64(layer) {
@@ -413,9 +413,9 @@ function flattenTree(tree) {
   function traverse(nodes) {
     nodes.forEach((node) => {
       if (node.children) {
-        traverse(node.children); // 递归遍历子节点
+        traverse(node.children); // Recursive nodes
       } else {
-        result.push(node); // 将当前节点添加到结果数组中
+        result.push(node); // Add the current node to the result array
       }
     });
   }

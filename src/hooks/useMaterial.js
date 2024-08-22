@@ -19,13 +19,13 @@ export default function useMaterial() {
   const route = useRoute();
   const canvasEditor = inject('canvasEditor');
 
-  // 创建模板
+  // Create template
   const createTmpl = async (width, height, parentId = '') => {
     canvasEditor.clear();
     canvasEditor.setSize(width, height);
-    const name = dayjs().format('YYYY[年]MM[月]DD[日]HH[小时]mm[分钟]ss[秒]') + '创建的作品';
+    const name = dayjs().format('YYYY-MM-DD-HH:mm:ss') + t('created-work');
     const data = await getCanvasCommonData();
-    // 上传图片
+    // Upload pictures
     const templInfo = await createdTempl({
       data: {
         ...data,
@@ -49,9 +49,9 @@ export default function useMaterial() {
   };
 
   const createTmplByCommon = async () => {
-    const name = dayjs().format('YYYY[年]MM[月]DD[日]HH[小时]mm[分钟]ss[秒]') + '创建的作品';
+    const name = dayjs().format('YYYY-MM-DD-HH:mm:ss') + t('created-work');
     const data = await getCanvasCommonData();
-    // 上传图片
+    // upload image
     const templInfo = await createdTempl({
       data: {
         ...data,
@@ -64,7 +64,7 @@ export default function useMaterial() {
     return templInfo;
   };
 
-  // 获取画布数据
+  // Get the canvas data
   const getCanvasCommonData = async () => {
     const json = canvasEditor.getJson();
     const fileInfo = await uploadFileToInfo();
@@ -75,7 +75,7 @@ export default function useMaterial() {
     };
   };
 
-  // 画布转图片
+  // Canvas transfer picture
   const uploadFileToInfo = async () => {
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),
@@ -104,23 +104,23 @@ export default function useMaterial() {
         });
     };
     const base64 = await canvasEditor.preview();
-    // 上传图片
+    // upload image
     const fileInfo = await upload(base64);
     return fileInfo;
   };
 
-  // 更新路由
+  // Update route
   const routerToId = (id) => {
     router.replace('/?id=' + id);
   };
 
-  // 获取详情
+  // Get details
   const getTemplInfo = async (id) => {
     const res = await getTmplInfo(id);
     return res.data;
   };
 
-  // 更新详情
+  // Update details
   const updataTemplInfo = async (id, name) => {
     const data = await getCanvasCommonData();
     name && (data.name = name);
@@ -132,8 +132,8 @@ export default function useMaterial() {
   const removeTemplInfo = (id) => {
     return new Promise((resolve, reject) => {
       Modal.confirm({
-        title: t('my_spase.remove_templ'),
-        content: `<p>${t('my_spase.remove_templTip')}</p>`,
+        title: t('my_space.remove_templ'),
+        content: `<p>${t('my_space.remove_templTip')}</p>`,
         onOk: () => {
           removeTempl(id).then(resolve).catch(reject);
         },
@@ -168,8 +168,8 @@ export default function useMaterial() {
     updataTemplInfo,
     removeTemplInfo,
     routerToId,
-    createdFileType, // 创建文件夹
-    reNameFileType, // 修改文件夹名称
-    removeFileType, // 删除文件夹
+    createdFileType, // Create a folder
+    reNameFileType, // Modify the folder name
+    removeFileType, // Delete the folder
   };
 }

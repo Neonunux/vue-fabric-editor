@@ -1,0 +1,233 @@
+{
+  "bgSeting": {
+    "size": "Taille",
+    "color": "Couleur",
+    "colorMacthing": "Agencement des couleurs",
+    "width": "Largeur",
+    "height": "Hauteur"
+  },
+  "attrSeting": {
+    "group": "Grouper",
+    "unGroup": "Dégrouper",
+    "flip": {
+      "name": "Retourner",
+      "x": "Retourner horizontalement",
+      "y": "Retourner verticalement"
+    },
+    "align": {
+      "name": "Aligner",
+      "left": "Aligner à gauche",
+      "centerX": "Aligner horizontalement au centre",
+      "right": "Aligner à droite",
+      "top": "Aligner en haut",
+      "bottom": "Aligner en bas",
+      "centerY": "Aligner verticalement au centre",
+      "averageX": "Distribuer horizontalement",
+      "averageY": "Distribuer verticalement"
+    },
+    "centerAlign": {
+      "name": "Centrer",
+      "centerX": "Centrer horizontalement",
+      "center": "Centrer horizontalement et verticalement",
+      "centerY": "Centrer verticalement"
+    }
+  },
+  "color": "Couleur",
+  "templates": "Modèles",
+  "elements": "Éléments",
+  "font_style": "Texte",
+  "background": "Arrière-plan",
+  "grid": "Grille",
+  "placeholder": "Veuillez entrer",
+  "common_elements": "Éléments de base",
+  "draw_elements": "Dessiner des éléments",
+  "background_texture": "Texture de l'arrière-plan",
+  "picture": "Image",
+  "everything_is_fine": "Tout va bien",
+  "everything_goes_well": "Tout se passe bien",
+  "cartoon": "Dessin animé",
+  "default_size": "Taille par défaut",
+  "preview": "Aperçu",
+  "save": {
+    "empty": "Vider",
+    "down": "Télécharger",
+    "save_my_space": "Enregistrer dans mon espace",
+    "save_as_picture": "Enregistrer en PNG",
+    "save_as_svg": "Enregistrer en SVG",
+    "copy_to_clipboard": "Copier dans le presse-papiers",
+    "copy_to_clipboardstr": "Copier la chaîne dans le presse-papiers",
+    "save_as_json": "Enregistrer en JSON"
+  },
+  "layers": "Calques",
+  "mymaterial": "Mes matériaux",
+  "my_space": {
+    "remove_templ": "Supprimer le modèle",
+    "remove_templTip": "Confirmer la suppression du modèle ?"
+  },
+  "title_template": "Modèle de titre",
+  "insert_svg": "Insérer un élément SVG",
+  "select_svg": "Sélectionner un fichier SVG",
+  "please_choose": "Veuillez choisir",
+  "string": "Chaîne",
+  "file": "Fichier",
+  "importFiles": {
+    "file": "Fichier",
+    "createDesign": {
+      "title": "Créer un design",
+      "customSize": "Taille personnalisée",
+      "systemSize": "Taille recommandée",
+      "width": "Largeur",
+      "height": "Hauteur",
+      "create": "Créer"
+    },
+    "importFiles": "Importer des fichiers"
+  },
+  "select_json": "Sélectionner un fichier JSON",
+  "repleaceImg": "Remplacer l'image",
+  "waterMark": {
+    "text": "Filigrane",
+    "modalTitle": "Configurer le filigrane",
+    "font-choice": "Choix de la police",
+    "setting": {
+      "name": "Nom du filigrane",
+      "size": "Taille du filigrane",
+      "color": "Couleur du filigrane",
+      "angle": "Angle du filigrane",
+      "position": {
+        "label": "Position du filigrane",
+        "lt": "En haut à gauche",
+        "rt": "En haut à droite",
+        "lb": "En bas à gauche",
+        "rb": "En bas à droite",
+        "full": "Plein"
+      }
+    }
+  },
+  "material": {
+    "cartoon": "Matériel"
+  },
+  "filters": {
+    "simple": "Filtre simple",
+    "complex": "Filtre complexe",
+    "Invert": "Inverser",
+    "Sepia": "Sépia",
+    "BlackWhite": "Noir et Blanc",
+    "Brownie": "Marron",
+    "Vintage": "Vintage",
+    "Kodachrome": "Kodachrome",
+    "technicolor": "Technicolor",
+    "Polaroid": "Polaroïd",
+    "Grayscale": "Niveaux de gris",
+    "GrayscaleList": {
+      "average": "Moyenne",
+      "lightness": "Lumière",
+      "luminosity": "Luminosité"
+    },
+    "RemoveColor": "Supprimer la couleur",
+    "Brightness": "Luminosité",
+    "Contrast": "Contraste",
+    "Saturation": "Saturation",
+    "Vibrance": "Vibrance",
+    "HueRotation": "Rotation de teinte",
+    "Noise": "Bruit",
+    "Pixelate": "Pixellisation",
+    "Blur": "Flou",
+    "Gamma": "Gamma"
+  },
+  "quick": {
+    "del": "Supprimer",
+    "copy": "Copier",
+    "lock": "Verrouiller",
+    "hide": "Cacher",
+    "editPoly": "Éditer le polygone"
+  },
+  "insertFile": {
+    "insert": "Insérer",
+    "insert_picture": "Insérer une image",
+    "insert_SVG": "Insérer un élément SVG",
+    "insert_SVGStr": "Insérer une chaîne SVG",
+    "insert_PSD": "Insérer un PSD",
+    "insert_SVGStr_placeholder": "Veuillez entrer la chaîne SVG",
+    "modal_tittle": "Veuillez entrer"
+  },
+  "history": {
+    "revocation": "Annuler",
+    "redo": "Rétablir"
+  },
+  "upload_background": "Télécharger un arrière-plan",
+  "mouseMenu": {
+    "layer": "Gestion des calques",
+    "copy": "Copier",
+    "delete": "Supprimer",
+    "group": "Grouper",
+    "unGroup": "Dégrouper",
+    "up": "Monter d'un calque",
+    "down": "Descendre d'un calque",
+    "upTop": "Monter au sommet",
+    "downTop": "Descendre au bas",
+    "center": "Centrer horizontalement et verticalement"
+  },
+  "alert": {
+    "loading_fonts": "Chargement des polices, veuillez patienter...",
+    "loading_fonts_failed": "Échec du chargement des polices, veuillez réessayer!",
+    "loading_fonts_success": "Polices chargées avec succès!",
+    "loading_data": "Chargement des données...",
+    "select_image": "Veuillez sélectionner une image d'arrière-plan",
+    "select_file": "Veuillez sélectionner un fichier",
+    "copied_sucessful": "Copié avec succès",
+    "fail_copy": "Échec de la copie"
+  },
+  "scenary_x": "Scénario {number}",
+  "red_book_vertical": "Livre rouge vertical",
+  "red_book_horizontal": "Livre rouge horizontal",
+  "phone_wallpaper": "Fond d'écran de téléphone",
+  "attributes": {
+    "id": "ID",
+    "linkData": "Lien",
+    "font": "Police",
+    "align": "Aligner",
+    "bold": "Gras:",
+    "italic": "Italique:",
+    "underline": "Souligné:",
+    "stroke": "Contour",
+    "swipe_up": "Glisser vers le haut:",
+    "line_height": "Hauteur de ligne",
+    "char_spacing": "Espacement des caractères",
+    "exterior": "Apparence",
+    "angle": "Rotation",
+    "left": "Axe X",
+    "top": "Axe Y",
+    "opacity": "Opacité",
+    "shadow": "Ombre",
+    "blur": "Flou",
+    "offset_x": "Décalage X",
+    "offset_y": "Décalage Y"
+  },
+  "setSizeTip": "Ajuster la taille du canevas",
+  "tip": "Conseil",
+  "clearTip": "Êtes-vous sûr de vouloir vider?",
+  "replaceTip": "Êtes-vous sûr de vouloir ajouter au canevas?",
+  "ok": "Confirmer",
+  "cancel": "Annuler",
+  "cleanUp": "Nettoyer",
+  "login": {
+    "title": "Bienvenue",
+    "welcome": "Bienvenue sur QuickPic",
+    "login": "Connexion",
+    "register": "Inscription",
+    "identifier": "Identifiant",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "email": "Email",
+    "identifierValidate": "Veuillez entrer un identifiant",
+    "passwordValidate": "Veuillez entrer un mot de passe de plus de 6 caractères",
+    "emailValidate": "Veuillez entrer une adresse email valide",
+    "logoutTip": "Êtes-vous sûr de vouloir vous déconnecter?",
+    "logoutSuccessTip": "Déconnexion réussie"
+  },
+  "myMaterial": {
+    "uploadBtn": "Télécharger un matériau"
+  },
+  "no-layer-set": "Pas de calque sélectionné",
+  "fast-operation": "Opération rapide"
+}

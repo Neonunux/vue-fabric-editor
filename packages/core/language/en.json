@@ -1,0 +1,19 @@
+{
+  "SVG-element": "SVG element",
+  "horizon": "horizon",
+  "copy": "copy",
+  "picture-1": "Picture 1",
+  "delete": "delete",
+  "turn-over": "Turn over",
+  "flip": {
+    "x": "X flip",
+    "y": "Y flip"
+  },
+  "split-combination": "Split combination",
+  "combination": "Combination",
+  "confirm-to-leave": "Confirm to leave",
+  "layer-management": "Layer management",
+  "previous": "Previous",
+  "replication": "replication",
+  "copy-failure": "Copy failure"
+}

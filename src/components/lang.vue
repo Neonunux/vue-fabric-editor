@@ -32,6 +32,7 @@ const { locale } = useI18n();
 const LANGMAP = {
   zh: '中文',
   en: 'En',
+  fr: 'Fr',
 };
 
 let langList = reactive(
@@ -42,7 +43,7 @@ const lang = computed(() => {
   return LANGMAP[locale.value];
 });
 
-// 设置语言
+// language setting
 const setLang = (type) => {
   locale.value = type;
   setLocal(LANG, type);

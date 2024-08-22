@@ -26,7 +26,7 @@
 
     <!-- <div>
       <Divider plain orientation="left">
-        <h4>蒙版</h4>
+        <h4>Mask</h4>
       </Divider>
 
       <workspaceMask />
@@ -68,11 +68,11 @@ const colorList = ref([
 ]);
 
 const color = ref('rgba(255, 255, 255, 1)');
-// 背景颜色设置
+// Background color settings
 const setThisColor = () => {
   setColor(color.value);
 };
-// 背景颜色设置
+// Background color settings
 function setColor(c) {
   const workspace = canvasEditor.canvas.getObjects().find((item) => item.id === 'workspace');
   workspace.set('fill', c);
@@ -80,7 +80,7 @@ function setColor(c) {
   color.value = c;
 }
 
-// 加载模板时回显颜色值
+// Back to the color value when loading the template
 const handleChangeColor = () => {
   const workspace = canvasEditor.canvas.getObjects().find((item) => item.id === 'workspace');
   color.value = workspace.fill;

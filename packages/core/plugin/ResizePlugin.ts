@@ -18,13 +18,13 @@ class ResizePlugin implements IPluginTempl {
   static events = [];
   static apis = [];
   workspaceEl!: HTMLElement;
-  // 最小画布尺寸
+  // Minimum canvas size
   minSize = { width: 1, height: 1 };
-  // 控制条
+  // Control bar
   barOpts = {
-    bWidth: 30, // 宽
-    bHeight: 6, // 高
-    bPadding: 10, // 离画布边缘的距离
+    bWidth: 30, // Width
+    bHeight: 6, // high
+    bPadding: 10, // The distance from the edge of the canvas
   };
   hasCreatedBar = false;
   isDragging = false;
@@ -51,7 +51,7 @@ class ResizePlugin implements IPluginTempl {
     this.workspaceEl = workspaceEl;
   }
 
-  // 初始化监听器
+  // Initialization monitoring device
   _initResizeObserve() {
     const resizeObserver = new ResizeObserver(
       throttle(() => {
@@ -61,41 +61,41 @@ class ResizePlugin implements IPluginTempl {
     resizeObserver.observe(this.workspaceEl);
   }
 
-  // 渲染控制条具体位置
+  // Rendering control bar specific location
   renderBars() {
     const viewportTransform = this.canvas.viewportTransform;
     const [scaleX, , , scaleY, offsetX, offsetY] = viewportTransform || [];
-    const workspace = this.getWorkspase() as Required<fabric.Rect>;
+    const workspace = this.getWorkspace() as Required<fabric.Rect>;
     const wsWidth = workspace.width * scaleX;
     const wsHeight = workspace.height * scaleY;
     const wsLeft = workspace.left * scaleX;
     const wsTop = workspace.top * scaleY;
     const { bWidth, bHeight, bPadding } = this.barOpts;
     if (!viewportTransform) return;
-    // 左控制条
+    // Left -control bar
     const leftBar = this._getBarFromType('left');
     leftBar.style.left = `${offsetX + wsLeft - bHeight - bPadding}px`;
     leftBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
-    // 右控制条
+    // Right control bar
     const rightBar = this._getBarFromType('right');
     rightBar.style.left = `${offsetX + wsLeft + wsWidth + bPadding}px`;
     rightBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
-    // 上控制条
+    // Upper control bar
     const topBar = this._getBarFromType('top');
     topBar.style.left = `${offsetX + wsLeft + wsWidth / 2 - bWidth / 2}px`;
     topBar.style.top = `${offsetY + wsTop - bHeight - bPadding}px`;
-    // 下控制条
+    // Lower control bar
     const bottomBar = this._getBarFromType('bottom');
     bottomBar.style.left = `${offsetX + wsLeft + wsWidth / 2 - bWidth / 2}px`;
     bottomBar.style.top = `${offsetY + wsTop + wsHeight + bPadding}px`;
-    // 监听
+    // monitor
     if (!this.hasCreatedBar) {
       this.hasCreatedBar = true;
       this._watchDrag();
     }
   }
 
-  // 获取或创建控制条
+  // Get or create control bar
   _getBarFromType(type: IPosition) {
     let bar = document.querySelector(`#resize-${type}-bar`) as HTMLElement;
     if (bar) return bar;
@@ -111,7 +111,7 @@ class ResizePlugin implements IPluginTempl {
     return bar;
   }
 
-  // 监听拖拽相关事件
+  // Drag and dragging related events
   _watchDrag() {
     const barList = Array.from(document.getElementsByClassName('resize-bar')) as HTMLElement[];
     barList.forEach((bar) => {
@@ -127,7 +127,7 @@ class ResizePlugin implements IPluginTempl {
           x: bar.offsetLeft,
           y: bar.offsetTop,
         };
-        const workspace = this.getWorkspase() as Required<fabric.Rect>;
+        const workspace = this.getWorkspace() as Required<fabric.Rect>;
         const { width, height, left, top } = workspace;
         this.wsOffset = { width, height, left, top };
       });
@@ -143,10 +143,10 @@ class ResizePlugin implements IPluginTempl {
     });
   }
 
-  // 拖拽更新控制条及画布
+  // Drag the update control bar and canvas
   onDragging(e: MouseEvent) {
     if (this.isDragging && this.dragEl) {
-      const workspace = this.getWorkspase() as Required<fabric.Rect>;
+      const workspace = this.getWorkspace() as Required<fabric.Rect>;
       const viewportTransform = this.canvas.viewportTransform;
       const [scaleX, , , scaleY] = viewportTransform || [];
       const deltaX = e.clientX - this.startPoints.x;
@@ -214,19 +214,19 @@ class ResizePlugin implements IPluginTempl {
     }
   }
 
-  // 事件句柄缓存
+  // Event handle cache
   private eventHandler: Record<string, (...args: any) => void> = {
     render: throttle(this.renderBars.bind(this), 50),
     onDragging: throttle(this.onDragging.bind(this), 30),
   };
 
-  // 监听画布渲染
+  // Surveillance drawing rendering
   _addListeners() {
     this.canvas.on('after:render', this.eventHandler.render);
   }
 
-  // 返回workspace对象
-  getWorkspase() {
+  // Return to workspace object
+  getWorkspace() {
     return this.canvas.getObjects().find((item) => item.id === 'workspace') as fabric.Rect;
   }
 

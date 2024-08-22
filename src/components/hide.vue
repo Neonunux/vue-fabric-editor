@@ -21,7 +21,7 @@ const { mixinState, canvasEditor } = useSelect();
 const isHide = ref(false);
 
 const doHide = (hide) => {
-  // 修改visible属性
+  // Modify the visible attribute
   const activeObject = canvasEditor.canvas.getActiveObject();
   activeObject.set('visible', !hide);
   canvasEditor.canvas.requestRenderAll();

@@ -44,7 +44,7 @@ export class DringPlugin implements IPluginTempl {
     this.canvas.renderAll();
   }
 
-  // 拖拽模式;
+  // Drag mode;
   _initDring() {
     const This = this;
     this.canvas.on('mouse:down', function (this: ExtCanvas, opt) {
@@ -104,7 +104,7 @@ export class DringPlugin implements IPluginTempl {
     console.log('pluginDestroy');
   }
 
-  // 快捷键扩展回调
+  // Shortcut key extension recovery
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.code === 'Space' && e.type === 'keydown') {

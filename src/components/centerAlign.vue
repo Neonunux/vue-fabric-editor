@@ -13,7 +13,7 @@
       <h4>{{ $t('attrSeting.centerAlign.name') }}</h4>
     </Divider>
     <div class="bg-item">
-      <!-- 水平集中 -->
+      <!-- Horizontal concentration -->
       <Tooltip :content="$t('attrSeting.centerAlign.centerX')">
         <Button long :disabled="!mixinState.mSelectMode" @click="position('centerH')" type="text">
           <svg
@@ -33,7 +33,7 @@
           </svg>
         </Button>
       </Tooltip>
-      <!-- 水平垂直居中 -->
+      <!-- Horizon -->
       <Tooltip :content="$t('attrSeting.centerAlign.center')">
         <Button long :disabled="!mixinState.mSelectMode" @click="position('center')" type="text">
           <svg
@@ -59,7 +59,7 @@
           </svg>
         </Button>
       </Tooltip>
-      <!-- 垂直居中 -->
+      <!-- Vertical center -->
       <Tooltip :content="$t('attrSeting.centerAlign.centerY')">
         <Button long :disabled="!mixinState.mSelectMode" @click="position('centerV')" type="text">
           <svg

@@ -65,7 +65,7 @@ const sizeList = ref([]);
 const showSetSize = (w, h) => {
   width.value = w || null;
   height.value = h || null;
-  // 获取素材
+  // Obtain material
   canvasEditor.getSizeList().then((res) => {
     sizeList.value = res;
   });

@@ -8,14 +8,14 @@
 
 <template>
   <div style="display: inline-block">
-    <!-- 后退 -->
+    <!-- Retreat -->
     <Tooltip :content="$t('history.revocation') + `(${canUndo})`">
       <Button @click="undo" type="text" size="small" :disabled="!canUndo">
         <Icon type="ios-undo" size="20" />
       </Button>
     </Tooltip>
 
-    <!-- 重做 -->
+    <!-- Re-do -->
     <Tooltip :content="$t('history.redo') + `(${canRedo})`">
       <Button @click="redo" type="text" size="small" :disabled="!canRedo">
         <Icon type="ios-redo" size="20" />
@@ -32,11 +32,11 @@ import useSelect from '@/hooks/select';
 const { canvasEditor } = useSelect() as { canvasEditor: any };
 const canUndo = ref(0);
 const canRedo = ref(0);
-// 后退
+// Retreat
 const undo = () => {
   canvasEditor.undo();
 };
-// 重做
+// Re-do
 const redo = () => {
   canvasEditor.redo();
 };

@@ -35,6 +35,7 @@
   "select_json": "Select JSON",
   "repleaceImg": "repleace Image",
   "waterMark": {
+    "font-choice": "Font choice",
     "text": "WaterMark",
     "modalTitle": "WaterMark Setting",
     "setting": {
@@ -191,5 +192,7 @@
   "ok": "ok",
   "cancel": "cancel",
   "cleanUp": "cleanUp",
-  "mine": "Mine"
+  "mine": "Mine",
+  "no-layer-set": "No layers yet",
+  "fast-operation": "Fast operation"
 }

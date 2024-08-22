@@ -73,7 +73,7 @@ class BarCodePlugin implements IPluginTempl {
           extensionType: 'barcode',
           extension: option,
         });
-        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 2);
+        imgEl.scaleToWidth(this.editor.getWorkspace().getScaledWidth() / 2);
         this.canvas.add(imgEl);
         this.canvas.setActiveObject(imgEl);
         this.editor.position('center');

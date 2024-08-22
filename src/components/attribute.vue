@@ -1,9 +1,9 @@
 <template>
   <div class="box" v-if="mixinState.mSelectMode === 'one'">
-    <!-- 通用属性 -->
+    <!-- Universal attribute -->
     <div v-show="baseType.includes(mixinState.mSelectOneType)">
       <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
-      <!-- 多边形边数 -->
+      <!-- Polygonal edge -->
       <Row v-if="mixinState.mSelectOneType === 'polygon'" :gutter="12">
         <Col flex="0.5">
           <InputNumber
@@ -15,7 +15,7 @@
           ></InputNumber>
         </Col>
       </Row>
-      <!-- 颜色 -->
+      <!-- color -->
       <colorSelector
         :color="baseAttr.fill"
         @change="(value) => changeCommon('fill', value)"
@@ -38,7 +38,7 @@ const fontsList = ref([]);
 canvasEditor.getFontList().then((list) => {
   fontsList.value = list;
 });
-// 通用元素
+// Universal element
 const baseType = [
   'text',
   'i-text',
@@ -53,8 +53,8 @@ const baseType = [
   'arrow',
   'thinTailArrow',
 ];
-// 文字元素
-// 通用属性
+// Text element
+// Universal attribute
 const baseAttr = reactive({
   id: '',
   opacity: 0,
@@ -77,7 +77,7 @@ const baseAttr = reactive({
 
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
-  // 不是当前obj，跳过
+  // Not the current obj, skip
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject) {
     // base
@@ -92,21 +92,21 @@ const selectCancel = () => {
 };
 
 const init = () => {
-  // 获取字体数据
+  // Get font data
   getObjectAttr();
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);
   canvasEditor.canvas.on('object:modified', getObjectAttr);
 };
 
-// 通用属性改变
+// Universal attribute change
 const changeCommon = (key, value) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   activeObject && activeObject.set(key, value);
   canvasEditor.canvas.renderAll();
 };
 
-// 修改边数
+// Modify the edge number
 const changeEdge = (value) => {
   const activeObjects = canvasEditor.canvas.getActiveObjects();
   if (!activeObjects || !activeObjects.length) return;

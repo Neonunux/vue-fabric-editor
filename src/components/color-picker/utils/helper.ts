@@ -25,7 +25,7 @@ export const toGradientString = (angle: number, stops: Stop[]) => {
 };
 
 /**
- * 显示全局提示
+ * Show global prompt
  * @param content
  * @param tooltipVisible
  * @returns

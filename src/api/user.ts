@@ -25,59 +25,59 @@ function getToken() {
   return token;
 }
 
-// 详情
+// Detail
 export const getUserInfo = (data: any) => instance.get('/api/users/me', data);
 
-// 登录
+// Log in
 export const login = (data: any) => instance.post('/api/auth/local', data);
 
-// 注册
+// register
 export const register = (data: any) => instance.post('/api/auth/local/register', data);
 
-// 登出
+// Sign out
 export const logout = () => localStorage.setItem(tokenKey, '');
 
-// 自动登录
+// Automatic login
 export const autoLogin = (data: any) => instance.post('/api/custom/autoAuthUser', data);
 
-// 设置token
+// Set token
 export const setToken = (token: string) => localStorage.setItem(tokenKey, token);
 
-// 获取个人素材列表
+// Obtain the list of personal materials
 export const getFileList = (data: any) => instance.get('/api/user-materials?populate=*', data);
 
-// 上传素材
+// Upload material
 export const uploadImg = (data: any) => instance.post('/api/upload', data);
 
-// 创建素材
+// Create material
 export const createdMaterial = (data: any) => instance.post('/api/user-materials', data);
 
-// 删除素材
+// Delete material
 export const removeMaterial = (id: any) => instance.delete('/api/user-materials/' + id);
 
-// 创建模板
+// Create template
 export const createdTempl = (data: any) => instance.post('/api/user-templs', data);
 
-// 删除素材
+// Delete material
 export const removeTempl = (data: any) => instance.delete(`/api/user-templs/${data}`);
 
-// 更新素材
+// Renewal
 export const updataTempl = (id: any, data: any) => instance.put(`/api/user-templs/${id}`, data);
 
-// 查询素材列表
+// Query material list
 export const getTmplList = (data: any) => instance.get(`/api/user-templs?${data}`);
 
-// 查询素材列表
+// Query material list
 export const getTmplInfo = (data: any) => instance.get(`/api/user-templs/${data}`);
 
-// 获取用户树菜单
+// Get user tree menu
 export const getUserFileTypeTree = () => instance.get(`/api/user-templ/getUerFileTypeTree`);
 
-// 获取菜单树
+// Get the menu tree
 export const getFileTypeTree = (data: any) =>
   instance.get(`/api/custom/getUerFileTypeTree`, {
     params: data,
   });
 
-// 获取用户树菜单
+// Get user tree menu
 export const getUerFileTree = () => instance.get(`/api/user-templ/getUerFileTree`);

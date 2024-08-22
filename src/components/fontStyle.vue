@@ -8,14 +8,14 @@
 
 <template>
   <div>
-    <!-- 搜索组件 -->
+    <!-- Search component -->
     <searchType
       ref="selectTypeRef"
       :typeListApi="getFontStyleTypes"
       @change="searchChange"
     ></searchType>
 
-    <!-- 分类列表 -->
+    <!-- Classification list -->
     <typeList
       v-show="!filters.font_style_type.$contains && !filters.name.$contains"
       :typeApi="getFontStyleTypes"
@@ -27,7 +27,7 @@
       @dragend="dragItem"
     ></typeList>
 
-    <!-- 搜索分页列表 -->
+    <!-- Search snack list -->
     <pageList
       v-if="filters.font_style_type.$contains || filters.name.$contains"
       DOMId="fontMaterialList"
@@ -58,7 +58,7 @@ const { canvasEditor } = useSelect();
 
 const { isOutsideCanvas } = useCalculate();
 
-// 按照类型渲染
+// Rendered by type
 const dragItem = async ({ e, info: item }) => {
   if (isOutsideCanvas(e.clientX, e.clientY)) return;
   Spin.show({
@@ -102,7 +102,7 @@ const filters = reactive({
   },
 });
 
-// 分页格式化
+// Paging
 const formatData = (data) => {
   return data.map((item) => {
     return {
@@ -116,7 +116,7 @@ const formatData = (data) => {
   });
 };
 
-// 搜索改变
+// Search change
 const searchChange = async ({ searchKeyWord, typeValue }) => {
   filters.name.$contains = '';
   filters.font_style_type.$contains = '';
@@ -125,7 +125,7 @@ const searchChange = async ({ searchKeyWord, typeValue }) => {
   filters.font_style_type.$contains = typeValue;
 };
 
-// 分类列表选择
+// Category list selection
 const selectType = async (type) => {
   filters.font_style_type.$contains = type;
   selectTypeRef.value.setType(type);

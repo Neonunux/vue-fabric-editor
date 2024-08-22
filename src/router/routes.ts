@@ -6,7 +6,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     beforeEnter: async (to) => {
-      // 自动登录功能
+      // Automatic login function
       if (to.query.username && to.query.key) {
         const res = await autoLogin({
           username: to.query.username,

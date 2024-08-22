@@ -48,7 +48,7 @@ declare namespace fabric {
   }
   export interface IObjectOptions {
     /**
-     * 标识
+     * Identify
      */
     id?: string | undefined;
   }

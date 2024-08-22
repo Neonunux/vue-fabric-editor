@@ -8,7 +8,7 @@
 
 <template>
   <div>
-    <!-- 搜索组件 -->
+    <!-- Search component -->
     <div class="search-box">
       <Select
         class="select"
@@ -29,7 +29,7 @@
         @on-search="startGetList"
       />
     </div>
-    <!-- 列表 -->
+    <!-- List -->
     <div style="height: calc(100vh - 108px)" id="myTemplBox">
       <Scroll
         key="mysscroll"
@@ -38,7 +38,7 @@
         :height="scrollHeight"
         :distance-to-edge="[-1, -1]"
       >
-        <!-- 列表 -->
+        <!-- List -->
         <div class="list-box">
           <Tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
             <div class="tmpl-img-box">
@@ -100,7 +100,7 @@ const {
 
 typeValue.value = 4;
 
-// 替换提示
+// Replace prompt
 const beforeClearTip = (info) => {
   Modal.confirm({
     title: t('tip'),
@@ -116,7 +116,7 @@ onMounted(() => {
   getTemplInfo();
 });
 
-// 获取模板数据
+// Get template data
 const getTempData = async (info) => {
   Spin.show({
     render: (h) => h('div', t('alert.loading_data')),

@@ -67,7 +67,7 @@ export default class AddBaseTypePlugin implements IPluginTempl {
   }
 
   _toScale(item: fabric.Object) {
-    const { width } = this.editor.getWorkspase();
+    const { width } = this.editor.getWorkspace();
     if (width === undefined) return;
     item.scaleToWidth(width / 2);
   }
